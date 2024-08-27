@@ -62,7 +62,7 @@ export default function Header() {
                 }}
               >
                 Pricing
-              </Button>            
+              </Button>
               <Button
                 color="inherit"
                 sx={{ "&:hover": { color: "rgba(245, 245, 245, 0.7)" } }}
@@ -77,7 +77,14 @@ export default function Header() {
               >
                 Sign Up
               </Button>
-            </>
+              <Button
+                color="inherit"
+                sx={{ "&:hover": { color: "rgba(245, 245, 245, 0.7)" } }}
+                href="/quiz"
+              >
+                Quiz
+              </Button>
+              </>
           ) : (
             <>
               <Button

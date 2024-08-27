@@ -166,7 +166,7 @@ export default function Home() {
             }}
             href="/generate"
           >
-            Get Started
+            Make a profile
           </Button>
         </Box>
       </section>
