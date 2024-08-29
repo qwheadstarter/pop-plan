@@ -97,9 +97,9 @@ export default function Header() {
               <Button
                 color="inherit"
                 sx={{ "&:hover": { color: "rgba(245, 245, 245, 0.7)" } }}
-                href="/flashcards"
+                href="/profile"
               >
-                My Flashcards
+                Profile
               </Button>                
               <UserButton />
             </>

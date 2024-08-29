@@ -77,3 +77,7 @@ li {
 .container p {
   padding: 8px 0;
 }
+
+.quiz-results {
+  color: #fff;
+}
