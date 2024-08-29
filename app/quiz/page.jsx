@@ -1,9 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 'use client';
 import React, { useState } from 'react';
+import { db } from "@/firebase";
+import { getDoc, doc, collection, writeBatch } from "firebase/firestore";
 import { quiz } from '/data.js';
+import { useUser } from "@clerk/nextjs";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const page = () => {
+    const { user } = useUser();
     const [activeQuestion, setActiveQuestion] = useState(0);
     const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
     const [showResult, setShowResult] = useState(false);
@@ -29,8 +35,38 @@ const page = () => {
         }
     };
 
+    // Save quiz results to database
+    const saveResults = async () => {
+        const name = "Quiz Results"
+        const batch = writeBatch(db);
+        const userDocRef = doc(collection(db, "users"), user.id);
+        const docSnap = await getDoc(userDocRef);
+
+        if (docSnap.exists()) {
+          const collections = docSnap.data().quizResults || [];
+          if (collections.find((f) => f.name === name)) {
+            alert("Collection with the same name already exists.");
+            return
+          }
+          collections.push({ name });
+          batch.set(userDocRef, { quizResults: collections }, { merge: true });
+        } else {
+          batch.set(userDocRef, { quizResults: [{ name }] });
+        }
+
+        const colRef = collection(userDocRef, name);
+        answersGiven.forEach((answerGiven, idx) => {
+          const answerDocRef = doc(colRef);
+          batch.set(answerDocRef, {"question": questions[idx].question, "answer": answerGiven});
+        });
+
+        await batch.commit();
+        alert("Saved successfully");
+    };
+
     return (
         <div className='container'>
+        <Header/ >
         <h1>Quiz Page</h1>
         <div>
             <h2>
@@ -69,10 +105,12 @@ const page = () => {
                     Question {idx + 1}: <span>{answer}</span>
                 </p>
                 ))}
+                <button onClick={saveResults}>Save</button>
                 <button onClick={() => window.location.reload()}>Restart</button>
             </div>
             )}
         </div>
+        <Footer/ >
         </div>
     );
 };
