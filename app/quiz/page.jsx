@@ -5,7 +5,6 @@ import { db } from "@/firebase"; // Make sure to have firebase configured
 import { getDoc, doc, collection, writeBatch } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user management
 import { quiz } from '/data.js';
-import { useUser } from "@clerk/nextjs";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
