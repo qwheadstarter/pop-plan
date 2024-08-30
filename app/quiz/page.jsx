@@ -2,7 +2,7 @@
 'use client';
 import React, { useState } from 'react';
 import { db } from "@/firebase"; // Make sure to have firebase configured
-import { getDoc, doc, collection, writeBatch } from "firebase/firestore";
+import { deleteDoc, getDoc, getDocs, doc, collection, writeBatch } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user management
 import { quiz } from '/data.js';
 import Header from "@/components/header";
@@ -101,17 +101,22 @@ const Page = () => {
 
         if (docSnap.exists()) {
             const collections = docSnap.data().quizResults || [];
-            if (collections.find((f) => f.name === name)) {
-                alert("Collection with the same name already exists.");
-                return;
+            if (!collections.find((f) => f.name === name)) {
+                collections.push({ name });
+                batch.set(userDocRef, { quizResults: collections }, { merge: false });
             }
-            collections.push({ name });
-            batch.set(userDocRef, { quizResults: collections }, { merge: true });
         } else {
             batch.set(userDocRef, { quizResults: [{ name }] });
         }
 
         const colRef = collection(userDocRef, name);
+
+        // clear previous quizResults
+        const docList = await(getDocs(colRef));
+        docList.forEach((doc) => {
+            deleteDoc(doc.ref);
+        })
+
         answersGiven.forEach((answerGiven, idx) => {
             const answerDocRef = doc(colRef);
             batch.set(answerDocRef, { "question": questions[idx].question, "answer": answerGiven });

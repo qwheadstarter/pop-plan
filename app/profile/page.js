@@ -24,7 +24,6 @@ export default function Profile() {
       setQuizResults(quizResults);
     }
     getQuizResults();
-    console.log("Quiz Results={quizResults}")
   }, [user]);
 
   if (!isLoaded || !isSignedIn) {
@@ -38,7 +37,7 @@ export default function Profile() {
       <div className='quiz-results'>
         {quizResults.map((result, idx) => (
         <p key={idx}>
-            {idx+1}. {result.question} <span>{result.answer}</span>
+            {idx+1}. {result.question} <span>{JSON.stringify(result.answer, null, 2)}</span>
         </p>
         ))}
       </div>
