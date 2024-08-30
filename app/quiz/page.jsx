@@ -119,7 +119,7 @@ const Page = () => {
 
         answersGiven.forEach((answerGiven, idx) => {
             const answerDocRef = doc(colRef);
-            batch.set(answerDocRef, { "question": questions[idx].question, "answer": answerGiven });
+            batch.set(answerDocRef, { "category": questions[idx].category, "question": questions[idx].question, "answer": answerGiven });
         });
 
         await batch.commit();

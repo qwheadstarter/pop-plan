@@ -37,7 +37,7 @@ export default function Profile() {
       <div className='quiz-results'>
         {quizResults.map((result, idx) => (
         <p key={idx}>
-            {idx+1}. {result.question} <span>{JSON.stringify(result.answer, null, 2)}</span>
+            {result.category}: <span>{JSON.stringify(result.answer, null, 2)}</span>
         </p>
         ))}
       </div>
