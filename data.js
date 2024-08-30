@@ -14,7 +14,7 @@ export const quiz = {
                 'Sporting events',
                 'None of the above'
             ],
-            category: 'interests',
+            category: 'Activities',
         },
         {
             id: 2,
@@ -27,7 +27,7 @@ export const quiz = {
                 'Outdoor group activities',
                 'Networking events or professional settings'
             ],
-            category: 'personality',
+            category: 'social personality',
         },
         {
             id: 3,
@@ -40,13 +40,13 @@ export const quiz = {
                 'Learning something new',
                 'Socializing and meeting new people'
             ],
-            category: 'interests',
+            category: 'vacation activities',
         },
         {
             id: 4,
             question: 'What is a hobby or special interest that you enjoy? (fill in the blank)',
             answers: [''],
-            category: 'interests',
+            category: 'hobbies and interests',
         },
         {
             id: 5,
@@ -70,7 +70,7 @@ export const quiz = {
                 'Bars',
                 'None of the above'
             ],
-            category: 'interests',
+            category: 'Food preference',
         },
         {
             id: 6,
@@ -79,7 +79,7 @@ export const quiz = {
                 'Yes',
                 'No',
             ],
-            category: 'personality',
+            category: 'disability and/or restrictions',
         },
         {
             id: 7,
@@ -90,7 +90,7 @@ export const quiz = {
                 'Bike',
                 'Public transportation'
             ],
-            category: 'personality',
+            category: 'preferred transportation method',
         },
         {
             id: 8,
@@ -110,7 +110,7 @@ export const quiz = {
                 'Gospel',
                 'None of the above'
             ],
-            category: 'interests',
+            category: 'preferred music genres',
         }
     ],
 };

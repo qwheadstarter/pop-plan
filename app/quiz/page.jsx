@@ -158,8 +158,8 @@ const Page = () => {
                                     <>
                                         <ul className="user-answers-list">
                                             {userAnswers.map((answer, idx) => (
-                                                <li 
-                                                    key={idx} 
+                                                <li
+                                                    key={idx}
                                                     className="user-answer"
                                                     onClick={() => removeUserAnswer(idx)}
                                                 >
@@ -191,8 +191,8 @@ const Page = () => {
                                     <>
                                         <ul className="user-answers-list">
                                             {userAnswers.map((answer, idx) => (
-                                                <li 
-                                                    key={idx} 
+                                                <li
+                                                    key={idx}
                                                     className="user-answer"
                                                     onClick={() => removeUserAnswer(idx)}
                                                 >
