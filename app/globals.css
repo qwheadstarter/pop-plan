@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500;1,700&display=swap");
 
 * {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
 
 html, body {
   overflow-x: hidden;
-  background-color: #000925;
+  background-color: #F4E2D0; /* Almond for background */
 }
 
 main {
@@ -17,12 +17,12 @@ main {
 }
 
 h1, h2 {
-  color: #eee;
+  color: #000; /* Black for headings */
 }
 
 h3 {
   padding-bottom: 2rem;
-  color: #000105;
+  color: #000; /* Black for subheadings */
   font-size: 1.8rem;
 }
 
@@ -33,12 +33,13 @@ button {
   font-size: 1rem;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #808080;
-  color: #f8f8f8;
+  color: #000; /* Black text on buttons */
 }
 
-.btn-disabled {
-  background-color: lightgray;
+button.btn-disabled {
+  background-color: #FFBB43; /* Xanthous for disabled button */
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 li {
@@ -46,18 +47,35 @@ li {
   cursor: pointer;
   margin: 9px 0;
   padding: 16px 8px;
-  color: #000105;
+  color: #000; /* Black text for list items */
+  background-color: rgba(55, 142, 158, 0.5); /* Blue (Munsell) with 50% transparency */
   border: 1px solid lightgray;
+  position: relative;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s ease;
 }
 
 .li-hover:hover {
-  background-color: #d8d8d8;
-  columns: #fff;
+  border-color: #C13525; /* Fire Engine Red */
 }
 
 .li-selected {
-  color: #fff;
-  background-color: #000925;
+  border-color: #F89408; /* Carrot Orange */
+  background-color: #FFBB43; /* Xanthous */
+  color: #000; /* Black text for selected list items */
+}
+
+.checkmark {
+  display: none;
+  font-size: 1.5rem;
+  color: #000; /* Black for checkmark */
+}
+
+.li-selected .checkmark {
+  display: inline; /* Display the checkmark when selected */
 }
 
 .container {
@@ -68,7 +86,6 @@ li {
 }
 
 .quiz-container {
-  background-color: #f8f8f8;
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 4px;
@@ -76,4 +93,110 @@ li {
 
 .container p {
   padding: 8px 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Adds space between the buttons */
+}
+
+/* Back button styles */
+button.back-btn {
+  background-color: #DD6517; /* Spanish Orange */
+  color: #000; /* Black text */
+}
+
+button.back-btn:hover {
+  background-color: #F89408; /* Carrot Orange on hover */
+}
+
+/* Next button styles */
+button.next-btn {
+  background-color: #53914D; /* Sea Green */
+  color: #000; /* Black text */
+}
+
+button.next-btn:hover {
+  background-color: #378E9E; /* Blue when hovered and selection is made */
+}
+
+button.next-btn.btn-disabled:hover {
+  background-color: #F89408; /* Keep orange when hovering and no selection is made */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem; /* Adds padding below the input box */
+  gap: 5px; /* Adds 5px gap between the input field and the button */
+}
+
+.input-field {
+  flex: 3; /* Occupies 3/4 of the row */
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  padding: 10px;
+  height: 40px; /* Set a fixed height */
+  box-sizing: border-box; /* Ensures padding is included in the height */
+}
+
+.add-btn {
+  flex: 1; /* Occupies 1/4 of the row */
+  font-size: 1rem;
+  height: 40px; /* Matches the fixed height of the input field */
+  padding: 0 10px;
+  box-sizing: border-box; /* Ensures padding is included in the height */
+  display: flex;
+  align-items: center; /* Vertically center the text */
+  justify-content: center; /* Horizontally center the text */
+  background-color: #53914D; /* Sea Green */
+  color: #000; /* Black text */
+}
+
+.user-answers-list {
+  margin-bottom: 1rem; /* Adds space below the list of user answers */
+}
+
+.user-answer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px; /* Match the spacing of other answers */
+  padding: 16px 8px; /* Match the padding of other answers */
+  border-radius: 8px; /* Match the border radius of other answers */
+  background-color: rgba(55, 142, 158, 0.5); /* Match the background color and transparency */
+  border: 1px solid lightgray;
+  font-size: 1rem;
+  color: #000; /* Black text */
+  transition: all 0.3s ease; /* Match the transition of other answers */
+  position: relative;
+}
+
+.user-answer:hover {
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.user-answer:hover::after {
+  content: "Click to delete";
+  color: #000; /* Black text for the tooltip */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.9rem;
+  background-color: rgba(255, 255, 255, 0.8); /* Slightly opaque background */
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 1;
+}
+
+.user-answer span {
+  flex-grow: 1;
+  margin-right: 5px;
+}
+
+.button-group {
+  margin-top: 1rem; /* Adds padding above the Back and Next buttons */
 }
