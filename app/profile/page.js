@@ -4,8 +4,10 @@ import { useUser } from "@clerk/nextjs";
 import { useState, useEffect } from "react";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "@/firebase";
-import Header from "@/components/header";
-import Footer from "@/components/footer"
+import "@/app/styles1.css";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer";
+import Geolocation from "@/utils/geolocation";
 
 export default function Profile() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -41,6 +43,7 @@ export default function Profile() {
         </p>
         ))}
       </div>
+      <Geolocation/ >
       <Footer/ >
     </div>
   );

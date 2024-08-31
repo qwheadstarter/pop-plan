@@ -7,7 +7,7 @@ import {
     Button,
 } from "@mui/material";
 import { UserButton, useUser } from "@clerk/nextjs";
-import "../app/globals.css";
+import "@/app/globals.css";
 
 export default function Header() {
     const { user } = useUser();

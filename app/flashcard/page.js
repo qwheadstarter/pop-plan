@@ -13,8 +13,8 @@ import {
   Container
 } from "@mui/material";
 import { Grid, Typography } from "@mui/material";
-import Header from "@/components/header";
-import Footer from "@/components/footer"
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer"
 
 import { useSearchParams } from "next/navigation";
 

@@ -3,8 +3,8 @@ import {useEffect, useState} from 'react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import getStripe from '@/utils/get-stripe'
 import {Button, CircularProgress, Typography, Box, Container} from '@mui/material'
-import Header from "@/components/header";
-import Footer from "@/components/footer"
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer"
 
 const ResultPage = () => {
     const router = useRouter()

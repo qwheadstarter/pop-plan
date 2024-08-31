@@ -6,8 +6,8 @@ import {
   Container,
   Typography
 } from "@mui/material";
-import Header from "@/components/header";
-import Footer from "@/components/footer"
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer"
 
 export default function SignInPage() {
   return (
@@ -29,7 +29,7 @@ export default function SignInPage() {
         <Typography variant="h4" sx={{ color: "#fff", mt: 3, mb: 3 }}>
           Not a member yet? Sign up to use Pop-Plan!
         </Typography>
-        <SignUp routing="hash" />
+        <SignUp routing="hash" forceRedirectUrl="/quiz"/>
       </Box>
       <Footer/ >
     </Container>

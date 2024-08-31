@@ -7,7 +7,7 @@ import {
     Grid,
     Typography,
 } from "@mui/material";
-import "../app/globals.css";
+import "@/app/globals.css";
 import { GitHub, LinkedIn } from "@mui/icons-material";
 import Link from "next/link";
 

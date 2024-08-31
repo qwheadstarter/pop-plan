@@ -26,9 +26,9 @@ import {
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import { useUser } from "@clerk/nextjs";
-import "../globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer"
+import "@/app/globals.css";
+import Header from "@/app/components/header";
+import Footer from "@/app/components/footer"
 
 export default function Generate() {
   const { user } = useUser();

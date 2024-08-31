@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useState } from "react";
-import { db } from "../firebase"; // Make sure to have firebase configured
+import { db } from "@/firebase"; // Make sure to have firebase configured
 import {
   deleteDoc,
   getDoc,
@@ -12,8 +12,9 @@ import {
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user management
 import { quiz } from "/data.js";
-// import Header from "@/components/header";
-// import Footer from "@/components/footer";
+import "@/app/styles1.css";
+//import Header from "@/app/components/header";
+//import Footer from "@/app/components/footer";
 
 const Page = () => {
   const { user } = useUser(); // Get the currently logged-in user
