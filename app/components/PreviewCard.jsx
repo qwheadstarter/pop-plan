@@ -284,7 +284,7 @@ const PreviewCard = () => {
           >
             <CardMedia sx={{ width: "100%", height: "100%" }}>
               <img
-                src="/assets/smp.jpeg"
+                src="/assets/ny.jpg"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </CardMedia>
