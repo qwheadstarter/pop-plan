@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  ExploreOutlined,
+  MapOutlined,
+  Quiz,
+  QuizOutlined,
+} from "@mui/icons-material";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import React from "react";
 
@@ -9,7 +15,7 @@ const HowItWorks = () => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "column",
+          flexDirection: "row",
           justifyContent: "space-evenly",
           alignItems: "left",
           gap: "2rem",
@@ -21,7 +27,7 @@ const HowItWorks = () => {
             border: "none",
             borderRadius: "8px",
             width: "500px",
-            height: "250px",
+            height: "260px",
             bgcolor: "#ffffff",
             color: "#46515a",
             boxShadow:
@@ -36,6 +42,7 @@ const HowItWorks = () => {
               alignItems: "center",
             }}
           >
+            <QuizOutlined sx={{ width: "50px", height: "50px" }} gutterBottom />
             <Typography variant="h4" gutterBottom>
               Take the Quiz
             </Typography>
@@ -54,7 +61,7 @@ const HowItWorks = () => {
             border: "none",
             borderRadius: "8px",
             width: "500px",
-            height: "250px",
+            height: "260px",
             bgcolor: "#ffffff",
             color: "#46515a",
             boxShadow:
@@ -69,6 +76,10 @@ const HowItWorks = () => {
               alignItems: "center",
             }}
           >
+            <ExploreOutlined
+              sx={{ width: "50px", height: "50px" }}
+              gutterBottom
+            />
             <Typography variant="h4" gutterBottom>
               Pick Your Adventure
             </Typography>
@@ -92,7 +103,7 @@ const HowItWorks = () => {
             border: "none",
             borderRadius: "8px",
             width: "500px",
-            height: "250px",
+            height: "260px",
             bgcolor: "#ffffff",
             color: "#46515a",
             boxShadow:
@@ -107,6 +118,7 @@ const HowItWorks = () => {
               alignItems: "center",
             }}
           >
+            <MapOutlined sx={{ width: "50px", height: "50px" }} gutterBottom />
             <Typography variant="h4" gutterBottom>
               Map Your Day
             </Typography>
