@@ -119,7 +119,7 @@ const Page = () => {
       const collections = docSnap.data().quizResults || [];
       if (!collections.find((f) => f.name === name)) {
         collections.push({ name });
-        batch.set(userDocRef, { quizResults: collections }, { merge: false });
+        batch.set(userDocRef, { quizResults: collections }, { merge: true });
       }
     } else {
       batch.set(userDocRef, { quizResults: [{ name }] });

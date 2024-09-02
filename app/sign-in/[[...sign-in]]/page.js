@@ -7,7 +7,7 @@ import {
   Typography
 } from "@mui/material";
 import Header from "@/app/components/header";
-import Footer from "@/app/components/footer"
+import Footer from "@/app/components/footer2"
 
 export default function SignInPage() {
   return (

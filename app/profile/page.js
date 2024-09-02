@@ -6,7 +6,7 @@ import "@/app/styles1.css";
 import { db } from "@/firebase";
 import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, writeBatch } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -21,6 +21,7 @@ export default function Profile() {
   const [userLocation, setUserLocation] = useState(null); // State to store user's location
   const [confirmRetake, setConfirmRetake] = useState(false); // State to show confirmation page
   const [showProfileImage, setShowProfileImage] = useState(false); // State to handle profile image enlargement
+  const [profileImage, setProfileImage] = useState("") // State to store user's profile image
   const router = useRouter();
 
   useEffect(() => {
@@ -42,10 +43,20 @@ export default function Profile() {
     return <></>;
   }
 
-  const handleZipCodeSubmit = () => {
+  const handleZipCodeSubmit = async () => {
     if (zipCode) {
       console.log("User submitted ZIP Code:", zipCode);
-      // Qi or Brandon: Need to connect to firebase to store zipcode in profile database. Please add logic here
+
+      const batch = writeBatch(db);
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.exists()) {
+        batch.set(userDocRef, { zipCode: zipCode }, { merge: true });
+      }
+
+      await batch.commit();
+      alert("Saved successfully");
     }
   };
 
@@ -71,7 +82,9 @@ export default function Profile() {
   };
 
   const handleEditProfileImage = () => {
-    // Qi or Brandon: Need to connect to firebase to store image in profile database. Please add logic here
+    // TODO: form to upload new profile image
+
+    saveProfileImage(profileImage)
   };
 
   const handleRetakeQuiz = () => {
@@ -84,6 +97,19 @@ export default function Profile() {
 
   const handleNoGoBack = () => {
     setConfirmRetake(false); // Hide confirmation page and return to profile
+  };
+
+  const saveProfileImage = async (profileImage) => {
+    const batch = writeBatch(db);
+    const userDocRef = doc(collection(db, "users"), user.id);
+    const docSnap = await getDoc(userDocRef);
+
+    if (docSnap.exists()) {
+      batch.set(userDocRef, { profileImage: profileImage }, { merge: true });
+    }
+
+    await batch.commit();
+    alert("Saved successfully");
   };
 
   return (
