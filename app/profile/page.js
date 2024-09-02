@@ -7,6 +7,7 @@ import { db } from "@/firebase";
 import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
 import { collection, doc, getDoc, getDocs, writeBatch } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -21,7 +22,7 @@ export default function Profile() {
   const [userLocation, setUserLocation] = useState(null); // State to store user's location
   const [confirmRetake, setConfirmRetake] = useState(false); // State to show confirmation page
   const [showProfileImage, setShowProfileImage] = useState(false); // State to handle profile image enlargement
-  const [profileImage, setProfileImage] = useState("") // State to store user's profile image
+  const [profileImageUrl, setProfileImageUrl] = useState("") // State to store user's profile image url
   const router = useRouter();
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export default function Profile() {
 
       // set fields
       setZipCode(docSnap.data().zipCode);
+      setProfileImageUrl(docSnap.data().profileImageUrl)
     }
     getUserData()
   }, [user]);
@@ -91,10 +93,30 @@ export default function Profile() {
     }
   };
 
-  const handleEditProfileImage = () => {
-    // TODO: form to upload new profile image
+  const handleEditProfileImage = async (e) => {
+    e.preventDefault()
+    const image = e.target[0]?.files[0]
+    if (image) {
+      const storage = getStorage();
 
-    saveProfileImage(profileImage)
+      const imageRef = ref(storage, `${user.id}/profileImage/${image.name}`);
+      await uploadBytesResumable(imageRef, image);
+
+      const imageUrl = await getDownloadURL(imageRef)
+
+      const batch = writeBatch(db);
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.exists()) {
+        batch.set(userDocRef, { profileImageUrl: imageUrl }, { merge: true });
+      }
+
+      await batch.commit();
+      alert("Saved successfully");
+
+      setProfileImageUrl(imageUrl)
+    }
   };
 
   const handleRetakeQuiz = () => {
@@ -124,25 +146,12 @@ export default function Profile() {
     alert("Saved successfully");
   };
 
-  const saveProfileImage = async (profileImage) => {
-    const batch = writeBatch(db);
-    const userDocRef = doc(collection(db, "users"), user.id);
-    const docSnap = await getDoc(userDocRef);
-
-    if (docSnap.exists()) {
-      batch.set(userDocRef, { profileImage: profileImage }, { merge: true });
-    }
-
-    await batch.commit();
-    alert("Saved successfully");
-  };
-
   return (
     <div className="profile-container">
       <Header />
       <div className="profile-hero">
         <div className="profile-image-wrapper" onClick={() => setShowProfileImage(true)}>
-        <img src={user.profileImageUrl || "/profile/defaultPic.png"} alt="Profile" className="profile-image" />
+        <img src={profileImageUrl || "/profile/defaultPic.png"} alt="Profile" className="profile-image" />
         </div>
         <h1 className="welcome-text">Welcome, {user.fullName || 'User'}!</h1>
         <div className="buttons-wrapper">
@@ -229,7 +238,7 @@ export default function Profile() {
         <div className="overlay">
           <div className="expanded-profile-container">
             <img
-              src={user.profileImageUrl || "/profile/defaultPic.png"}
+              src={profileImageUrl || "/profile/defaultPic.png"}
               alt="Expanded Profile"
               className="expanded-profile-image"
               style={{ width: "300px", height: "300px" }} // Ensure image is doubled in size
@@ -238,9 +247,13 @@ export default function Profile() {
               <button className="custom-button" onClick={() => setShowProfileImage(false)}>
                 Exit
               </button>
-              <button className="custom-button" onClick={handleEditProfileImage}>
-                Edit Profile Picture
-              </button>
+              <form onSubmit={handleEditProfileImage} className="custom-button">
+                <label>
+                  Edit Profile Picture
+                <input type="file" accept="image/*" />
+                </label>
+                <button type="submit">Update</button>
+              </form>
             </div>
           </div>
         </div>
