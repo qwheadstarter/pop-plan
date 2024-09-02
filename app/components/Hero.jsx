@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Typography, Button, Box, IconButton } from "@mui/material";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import { ArrowCircleDownOutlined } from "@mui/icons-material";
 
 const Hero = () => {
   return (
@@ -60,6 +61,19 @@ const Hero = () => {
               />
             </IconButton>
           </Box>
+        </Box>
+        <Box>
+          <ArrowCircleDownOutlined
+            sx={{
+              height: "40px",
+              width: "40px",
+              mt: "340px",
+              cursor: "pointer",
+              "&:hover": {
+                color: "grey",
+              },
+            }}
+          />
         </Box>
       </Container>
     </div>

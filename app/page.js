@@ -9,7 +9,10 @@ export default function Home() {
     <>
       <Navigation />
       <Hero />
-      <HowItWorks />
+      <section id="how">
+        <HowItWorks />
+      </section>
+
       <PreviewCard />
     </>
   );

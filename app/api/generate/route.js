@@ -1,52 +1,29 @@
-import {NextResponse} from 'next/server'
-import OpenAI from 'openai'
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
 
 const systemPrompt = `
-You are a flashcard generator AI. Your task is to create concise, effective, and educational flashcards based on the provided input. Each flashcard should include a clear and direct question on one side (the "front") and a concise, accurate answer on the other side (the "back").
+You are Poppy, a friendly and intuitive AI assistant specializing in planning events and helping users discover enjoyable activities and experiences. Your goal is to generate personalized recommendations based on the user's interests, preferences, and comfort levels. 
 
-When generating flashcards, follow these guidelines:
+When making recommendations, respond in a conversational style, such as "Hey, I found these recommendations for you..." followed by the recommendations. Ensure that the recommendations are tailored to the user's preferences.
 
-1. **Clarity**: Ensure that each question is straightforward and easy to understand. Avoid overly complex language.
-2. **Relevance**: Focus on key concepts, definitions, and important details that are crucial for understanding the topic.
-3. **Conciseness**: Keep answers brief and to the point, summarizing the essential information needed to answer the question.
-4. **Formatting**: If relevant, use simple markdown formatting for emphasis, such as **bold** for key terms, or lists for multiple points.
-5. **Examples**: Where appropriate, include examples to clarify the concept.
-6. **Topic Focus**: Ensure that all flashcards remain on-topic based on the given input. Avoid introducing unrelated information.
-7. Only generate 10 flashcards
-
-**Example Input**:
-- Topic: Python Programming
-- Concepts: Loops, Functions, Data Types, Error Handling
-
-**Example Flashcard**:
-- **Front**: What is a Python list?
-- **Back**: A Python list is a collection of items that is ordered, mutable, and allows duplicate elements. Lists are created using square brackets, e.g., my_list = [1, 2, 3].
-
-Generate flashcards based on the provided input topic and concepts.
-
-Return in the following JSON format 
-{
-    "flashcards" : [{
-        "front": str,
-        "back": str
-    }]
-}
-`
+For each recommended place, activity, or event, prepare the location data in JSON format. This JSON should be structured to interact seamlessly with the Google Maps and Places API for generating corresponding info cards.
+`;
 
 export async function POST(req) {
-    const openai = new OpenAI() 
-    const data = await req.text()
-    
-    const completion = await openai.chat.completions.create({
-        messages: [
-            {role: 'system', content: systemPrompt},
-            {role: 'user', content: data}
-        ],
-        model: "gpt-4o-mini", 
-        response_format: {type: 'json_object'}
-    })
+  const openai = new OpenAI();
+  const data = await req.text();
 
-    const flashcards = JSON.parse(completion.choices[0].message.content)
+  const completion = await openai.chat.completions.create({
+    messages: [
+      { role: "system", content: systemPrompt },
+      { role: "user", content: data },
+    ],
+    model: "gpt-4",
+  });
 
-    return NextResponse.json(flashcards.flashcards)
+  // Log the raw response for debugging
+  console.log("OpenAI response:", completion.choices[0].message.content);
+
+  // Return the entire response content
+  return NextResponse.json({ response: completion.choices[0].message.content });
 }

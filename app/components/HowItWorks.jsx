@@ -12,6 +12,12 @@ import React from "react";
 const HowItWorks = () => {
   return (
     <div className="how-container">
+      <Typography
+        variant="h3"
+        sx={{ mt: 3, textAlign: "center", color: "#46515A", fontWeight: 500 }}
+      >
+        Getting Started With Poppy
+      </Typography>
       <Box
         sx={{
           display: "flex",
