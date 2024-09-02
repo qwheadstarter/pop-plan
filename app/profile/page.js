@@ -37,6 +37,16 @@ export default function Profile() {
       setQuizResults(quizResults);
     }
     getQuizResults();
+
+    async function getUserData() {
+      if (!user) return;
+      const docRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(docRef);
+
+      // set fields
+      setZipCode(docSnap.data().zipCode);
+    }
+    getUserData()
   }, [user]);
 
   if (!isLoaded || !isSignedIn) {
@@ -97,6 +107,21 @@ export default function Profile() {
 
   const handleNoGoBack = () => {
     setConfirmRetake(false); // Hide confirmation page and return to profile
+  };
+
+  const saveUserBasicInfo = async (userName, age, gender) => {
+    const batch = writeBatch(db);
+    const userDocRef = doc(collection(db, "users"), user.id);
+    const docSnap = await getDoc(userDocRef);
+
+    if (docSnap.exists()) {
+      batch.set(userDocRef, { name: userName }, { merge: true });
+      batch.set(userDocRef, { age: age }, { merge: true });
+      batch.set(userDocRef, { gender: gender }, { merge: true });
+    }
+
+    await batch.commit();
+    alert("Saved successfully");
   };
 
   const saveProfileImage = async (profileImage) => {
