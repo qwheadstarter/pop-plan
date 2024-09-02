@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { db } from "@/firebase";
+import { db } from "../firebase";
 import { getDoc, doc, collection, writeBatch } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import {
@@ -21,14 +21,14 @@ import {
   DialogContentText,
   DialogActions,
   IconButton,
-  Alert
+  Alert,
 } from "@mui/material";
 import MicIcon from "@mui/icons-material/Mic";
 import MicOffIcon from "@mui/icons-material/MicOff";
 import { useUser } from "@clerk/nextjs";
 import "@/app/globals.css";
 import Header from "@/app/components/header";
-import Footer from "@/app/components/footer"
+import Footer from "@/app/components/footer";
 
 export default function Generate() {
   const { user } = useUser();
@@ -249,7 +249,7 @@ export default function Generate() {
       maxWidth="false"
       sx={{ bgcolor: "#020303", maxWidth: "100%", height: "100%" }}
     >
-      <Header/ >
+      <Header />
       <Box
         sx={{
           mt: 4,
@@ -327,11 +327,11 @@ export default function Generate() {
             fullWidth
             multiline
             rows={4}
-            sx={{ 
+            sx={{
               mb: 2,
               border: "2px solid white",
               bgcolor: "#0A0A0A",
-              color: "#fff" 
+              color: "#fff",
             }}
           />
           <Button
@@ -385,7 +385,7 @@ export default function Generate() {
                         height: "200px",
                         borderRadius: 1,
                         borderStyle: "solid",
-                        borderColor: "#fff",                        
+                        borderColor: "#fff",
                         overflow: "hidden",
                         "& > div": {
                           transition: "transform 0.6s",
@@ -548,7 +548,7 @@ export default function Generate() {
           </Button>
         </DialogActions>
       </Dialog>
-      <Footer/ >
+      <Footer />
     </Container>
   );
 }

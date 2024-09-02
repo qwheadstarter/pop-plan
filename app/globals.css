@@ -66,7 +66,7 @@
 html,
 body {
   overflow-x: hidden;
-  background-color: #f4e2d0; /*Almond for background */
+  /* background-color: #f4e2d0; Almond for background */
 }
 
 main {
@@ -277,10 +277,10 @@ button.next-btn.btn-disabled:hover {
 }
 
 .profile-hero {
-  background: linear-gradient(135deg, #FF512F, #F09819);
+  background: linear-gradient(135deg, #ff512f, #f09819);
   padding: 50px 0;
   text-align: center;
-  border-bottom: 5px solid #FF512F;
+  border-bottom: 5px solid #ff512f;
 }
 
 .profile-image-wrapper {
@@ -369,7 +369,7 @@ button.next-btn.btn-disabled:hover {
 }
 
 .expanded-profile-container {
-  background: linear-gradient(135deg, #FF512F, #F09819);
+  background: linear-gradient(135deg, #ff512f, #f09819);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -413,7 +413,11 @@ button.next-btn.btn-disabled:hover {
 }
 
 .confirmation-box {
-  background: linear-gradient(135deg, #FF512F, #F09819); /* Match the gradient pattern of the webpage */
+  background: linear-gradient(
+    135deg,
+    #ff512f,
+    #f09819
+  ); /* Match the gradient pattern of the webpage */
   padding: 40px;
   border-radius: 15px;
   text-align: center;

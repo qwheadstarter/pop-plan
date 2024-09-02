@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useState } from "react";
-import { db } from "@/firebase"; // Make sure to have firebase configured
+import { db } from "../firebase"; // Make sure to have firebase configured
 import {
   deleteDoc,
   getDoc,
