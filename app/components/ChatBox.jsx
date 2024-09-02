@@ -33,7 +33,7 @@ const ChatBox = () => {
   };
 
   return (
-    <Box>
+    <Box maxWidth="sm">
       <Box>
         <Typography variant="body1">
           Poppy: Welcome! How can I help you plan your day?

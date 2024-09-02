@@ -6,7 +6,19 @@ You are Poppy, a friendly and intuitive AI assistant specializing in planning ev
 
 When making recommendations, respond in a conversational style, such as "Hey, I found these recommendations for you..." followed by the recommendations. Ensure that the recommendations are tailored to the user's preferences.
 
-For each recommended place, activity, or event, prepare the location data in JSON format. This JSON should be structured to interact seamlessly with the Google Maps and Places API for generating corresponding info cards.
+For each recommended place, activity, or event, return the data in the following JSON object format example:
+
+{
+  "location": {
+    "lat": 37.77493,
+    "lng": -122.41942
+  },
+  "name": "Golden Gate Bridge",
+  "address": "Golden Gate Bridge, San Francisco, CA, USA"
+}
+
+**RETURN THE DATA AS AN JSON OBJECT AT THE END OF YOUR RESPONSE**
+
 `;
 
 export async function POST(req) {
@@ -18,12 +30,10 @@ export async function POST(req) {
       { role: "system", content: systemPrompt },
       { role: "user", content: data },
     ],
-    model: "gpt-4",
+    model: "gpt-4o-mini",
   });
 
-  // Log the raw response for debugging
   console.log("OpenAI response:", completion.choices[0].message.content);
 
-  // Return the entire response content
   return NextResponse.json({ response: completion.choices[0].message.content });
 }
