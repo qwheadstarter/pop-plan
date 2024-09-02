@@ -1,7 +1,10 @@
+"use client";
+
 import React from "react";
-import { Container, Typography, Button, Box, IconButton } from "@mui/material";
+import { Container, Typography, Button, Box } from "@mui/material";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { ArrowCircleDownOutlined } from "@mui/icons-material";
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -33,34 +36,39 @@ const Hero = () => {
             mt: 3,
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              border: "none",
-              borderRadius: "20px",
-              width: "300px",
-              height: "40px",
-              bgcolor: "#fff",
-            }}
-          >
-            <Typography ml={1} sx={{ color: "grey" }}>
+          <Link href="/chat" passHref style={{ textDecoration: "none" }}>
+            <Button
+              sx={{
+                display: "flex",
+                color: "grey",
+                justifyContent: "space-between",
+                alignItems: "center",
+                border: "none",
+                borderRadius: "20px",
+                width: "300px",
+                height: "40px",
+                bgcolor: "#fff",
+                textTransform: "none",
+                "&:hover": {
+                  bgcolor: "#fff",
+                },
+              }}
+              endIcon={
+                <ArrowCircleRightRoundedIcon
+                  sx={{
+                    width: "40px",
+                    height: "50px",
+                    color: "grey",
+                    "&:hover": {
+                      color: "#D4523B",
+                    },
+                  }}
+                />
+              }
+            >
               Chat with Poppy
-            </Typography>
-            <IconButton>
-              <ArrowCircleRightRoundedIcon
-                sx={{
-                  width: "40px",
-                  height: "50px",
-                  color: "grey",
-                  "&: hover": {
-                    color: "#D4523B",
-                  },
-                }}
-              />
-            </IconButton>
-          </Box>
+            </Button>
+          </Link>
         </Box>
         <Box>
           <ArrowCircleDownOutlined

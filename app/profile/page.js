@@ -3,11 +3,22 @@
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/header";
 import "@/app/styles1.css";
-import { db } from "@/firebase";
+import { db } from "../firebase";
 import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
-import { collection, doc, getDoc, getDocs, writeBatch } from "firebase/firestore";
-import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  writeBatch,
+} from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -22,13 +33,16 @@ export default function Profile() {
   const [userLocation, setUserLocation] = useState(null); // State to store user's location
   const [confirmRetake, setConfirmRetake] = useState(false); // State to show confirmation page
   const [showProfileImage, setShowProfileImage] = useState(false); // State to handle profile image enlargement
-  const [profileImageUrl, setProfileImageUrl] = useState("") // State to store user's profile image url
+  const [profileImageUrl, setProfileImageUrl] = useState(""); // State to store user's profile image url
   const router = useRouter();
 
   useEffect(() => {
     async function getQuizResults() {
       if (!user) return;
-      const colRef = collection(doc(collection(db, "users"), user.id), "Quiz Results");
+      const colRef = collection(
+        doc(collection(db, "users"), user.id),
+        "Quiz Results"
+      );
       const docSnap = await getDocs(colRef);
 
       const quizResults = [];
@@ -46,9 +60,9 @@ export default function Profile() {
 
       // set fields
       setZipCode(docSnap.data().zipCode);
-      setProfileImageUrl(docSnap.data().profileImageUrl)
+      setProfileImageUrl(docSnap.data().profileImageUrl);
     }
-    getUserData()
+    getUserData();
   }, [user]);
 
   if (!isLoaded || !isSignedIn) {
@@ -94,15 +108,15 @@ export default function Profile() {
   };
 
   const handleEditProfileImage = async (e) => {
-    e.preventDefault()
-    const image = e.target[0]?.files[0]
+    e.preventDefault();
+    const image = e.target[0]?.files[0];
     if (image) {
       const storage = getStorage();
 
       const imageRef = ref(storage, `${user.id}/profileImage/${image.name}`);
       await uploadBytesResumable(imageRef, image);
 
-      const imageUrl = await getDownloadURL(imageRef)
+      const imageUrl = await getDownloadURL(imageRef);
 
       const batch = writeBatch(db);
       const userDocRef = doc(collection(db, "users"), user.id);
@@ -115,7 +129,7 @@ export default function Profile() {
       await batch.commit();
       alert("Saved successfully");
 
-      setProfileImageUrl(imageUrl)
+      setProfileImageUrl(imageUrl);
     }
   };
 
@@ -150,18 +164,33 @@ export default function Profile() {
     <div className="profile-container">
       <Header />
       <div className="profile-hero">
-        <div className="profile-image-wrapper" onClick={() => setShowProfileImage(true)}>
-        <img src={profileImageUrl || "/profile/defaultPic.png"} alt="Profile" className="profile-image" />
+        <div
+          className="profile-image-wrapper"
+          onClick={() => setShowProfileImage(true)}
+        >
+          <img
+            src={profileImageUrl || "/profile/defaultPic.png"}
+            alt="Profile"
+            className="profile-image"
+          />
         </div>
-        <h1 className="welcome-text">Welcome, {user.fullName || 'User'}!</h1>
+        <h1 className="welcome-text">Welcome, {user.fullName || "User"}!</h1>
         <div className="buttons-wrapper">
-          <button className="custom-button" onClick={() => setShowQuizResults(!showQuizResults)}>
+          <button
+            className="custom-button"
+            onClick={() => setShowQuizResults(!showQuizResults)}
+          >
             {showQuizResults ? "Hide Quiz Results" : "See Quiz Results"}
           </button>
-          <button className="custom-button" onClick={handleRetakeQuiz}>Retake Preference Quiz</button>
+          <button className="custom-button" onClick={handleRetakeQuiz}>
+            Retake Preference Quiz
+          </button>
           <button className="custom-button">Rate Your Plans</button>
           <button className="custom-button">Ask Poppy for a New Plan</button>
-          <button className="custom-button" onClick={() => setShowLocation(!showLocation)}>
+          <button
+            className="custom-button"
+            onClick={() => setShowLocation(!showLocation)}
+          >
             {showLocation ? "Hide Location" : "Update Location"}
           </button>
         </div>
@@ -171,11 +200,20 @@ export default function Profile() {
       {confirmRetake && (
         <div className="overlay">
           <div className="confirmation-box">
-            <h3 className="content-title">Are you sure you want to retake your preference quiz?</h3>
-            <p>All previous results will be lost and replaced with the new results.</p>
+            <h3 className="content-title">
+              Are you sure you want to retake your preference quiz?
+            </h3>
+            <p>
+              All previous results will be lost and replaced with the new
+              results.
+            </p>
             <div className="expanded-buttons-wrapper">
-              <button className="custom-button" onClick={handleYesRetake}>Yes, Retake Quiz</button>
-              <button className="custom-button" onClick={handleNoGoBack}>No, Go Back</button>
+              <button className="custom-button" onClick={handleYesRetake}>
+                Yes, Retake Quiz
+              </button>
+              <button className="custom-button" onClick={handleNoGoBack}>
+                No, Go Back
+              </button>
             </div>
           </div>
         </div>
@@ -190,7 +228,8 @@ export default function Profile() {
               <div className="results-container">
                 {quizResults.map((result, idx) => (
                   <p key={idx} className="result-text">
-                    <strong>{result.category}</strong>: <span>{JSON.stringify(result.answer, null, 2)}</span>
+                    <strong>{result.category}</strong>:{" "}
+                    <span>{JSON.stringify(result.answer, null, 2)}</span>
                   </p>
                 ))}
               </div>
@@ -202,7 +241,10 @@ export default function Profile() {
               <h3 className="content-title">Your Location</h3>
               {!locationPermission && (
                 <>
-                  <button className="custom-button" onClick={handleGiveLocationPermission}>
+                  <button
+                    className="custom-button"
+                    onClick={handleGiveLocationPermission}
+                  >
                     Give Location Permission
                   </button>
                   {locationError && (
@@ -214,7 +256,10 @@ export default function Profile() {
                         value={zipCode}
                         onChange={(e) => setZipCode(e.target.value)}
                       />
-                      <button className="custom-button" onClick={handleZipCodeSubmit}>
+                      <button
+                        className="custom-button"
+                        onClick={handleZipCodeSubmit}
+                      >
                         Submit
                       </button>
                     </div>
@@ -244,13 +289,16 @@ export default function Profile() {
               style={{ width: "300px", height: "300px" }} // Ensure image is doubled in size
             />
             <div className="expanded-buttons-wrapper">
-              <button className="custom-button" onClick={() => setShowProfileImage(false)}>
+              <button
+                className="custom-button"
+                onClick={() => setShowProfileImage(false)}
+              >
                 Exit
               </button>
               <form onSubmit={handleEditProfileImage} className="custom-button">
                 <label>
                   Edit Profile Picture
-                <input type="file" accept="image/*" />
+                  <input type="file" accept="image/*" />
                 </label>
                 <button type="submit">Update</button>
               </form>
@@ -258,7 +306,6 @@ export default function Profile() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
