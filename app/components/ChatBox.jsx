@@ -38,15 +38,6 @@ const ChatBox = () => {
 
       const quizResultsJSON = JSON.stringify(fetchedQuizResults, null, 2);
       console.log("Formatted Quiz Results JSON:", quizResultsJSON);
-
-      const formattedPrompt = `
-      Here is the user’s quiz data in JSON format:
-      ${quizResultsJSON}
-
-      Based on this information, please plan a day for me in San Diego, focusing on food and sports.`;
-
-      console.log("Final Prompt Sent to API:", formattedPrompt);
-      setPrompt(formattedPrompt);
     } catch (error) {
       console.error("Error fetching quiz results: ", error);
     }
@@ -73,13 +64,32 @@ const ChatBox = () => {
       }
       const data = await response.json();
       console.log("Received Data from API:", data);
-      setResponse(data.response || "");
+
+      // Parse and format the itinerary data
+      const formattedResponse = formatItinerary(data);
+      setResponse(formattedResponse);
     } catch (error) {
       console.error("Error generating recommendations: ", error);
       alert(
         "An error occurred while generating recommendations. Please try again."
       );
     }
+  };
+
+  const formatItinerary = (data) => {
+    if (!data.intro || !data.itinerary || !Array.isArray(data.itinerary)) {
+      return "Sorry, I couldn't generate an itinerary at the moment.";
+    }
+
+    let formattedItinerary = `${data.intro}\n\n`;
+
+    data.itinerary.forEach((item, index) => {
+      formattedItinerary += `${index + 1}. **${item.time} - ${item.name}**\n`;
+      formattedItinerary += `   ${item.description}\n`;
+      formattedItinerary += `   - **Address:** ${item.address}\n\n`;
+    });
+
+    return formattedItinerary;
   };
 
   return (

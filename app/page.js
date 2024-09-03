@@ -9,11 +9,9 @@ export default function Home() {
     <>
       <Navigation />
       <Hero />
-      <section id="how">
-        <HowItWorks />
-      </section>
-
+      <HowItWorks />
       <PreviewCard />
+      <Footer />
     </>
   );
 }

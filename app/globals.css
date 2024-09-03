@@ -61,7 +61,7 @@
 html,
 body {
   overflow-x: hidden;
-  background: linear-gradient(135deg, #ff512f, #f09819); /* Mimic profile page background */
+  /* background: linear-gradient(135deg, #ff512f, #f09819); Mimic profile page background */
 }
 
 main {
@@ -110,7 +110,12 @@ li {
   margin: 9px 0;
   padding: 16px 8px;
   color: #000; /* Black text for list items */
-  background-color: rgba(55, 142, 158, 0.5); /* Blue (Munsell) with 50% transparency */
+  background-color: rgba(
+    55,
+    142,
+    158,
+    0.5
+  ); /* Blue (Munsell) with 50% transparency */
   border: 1px solid lightgray;
   position: relative;
   border-radius: 8px;
@@ -240,7 +245,12 @@ button.next-btn.btn-disabled:hover {
   margin-bottom: 9px; /* Match the spacing of other answers */
   padding: 16px 8px; /* Match the padding of other answers */
   border-radius: 8px; /* Match the border radius of other answers */
-  background-color: rgba(55, 142, 158, 0.5); /* Match the background color and transparency */
+  background-color: rgba(
+    55,
+    142,
+    158,
+    0.5
+  ); /* Match the background color and transparency */
   border: 1px solid lightgray;
   font-size: 1rem;
   color: #000; /* Black text */
