@@ -56,10 +56,12 @@
 
 /* QUIZ HOMEPAGE */
 
+/* QUIZ HOMEPAGE */
+
 html,
 body {
   overflow-x: hidden;
-  /* background-color: #f4e2d0; Almond for background */
+  background: linear-gradient(135deg, #ff512f, #f09819); /* Mimic profile page background */
 }
 
 main {
@@ -84,7 +86,16 @@ button {
   font-size: 1rem;
   border-radius: 4px;
   cursor: pointer;
-  color: #000; /* Black text on buttons */
+  color: #fff; /* White text on buttons */
+  background-color: #378e9e; /* Sea Green for buttons */
+  transition: all 0.3s ease; /* Transition for button hover effect */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Button shadow */
+}
+
+button:hover {
+  background-color: #215d68; /* Darker shade of Sea Green on hover */
+  transform: translateY(-5px); /* Move button up slightly on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow on hover */
 }
 
 button.btn-disabled {
@@ -99,12 +110,7 @@ li {
   margin: 9px 0;
   padding: 16px 8px;
   color: #000; /* Black text for list items */
-  background-color: rgba(
-    55,
-    142,
-    158,
-    0.5
-  ); /* Blue (Munsell) with 50% transparency */
+  background-color: rgba(55, 142, 158, 0.5); /* Blue (Munsell) with 50% transparency */
   border: 1px solid lightgray;
   position: relative;
   border-radius: 8px;
@@ -115,7 +121,9 @@ li {
 }
 
 .li-hover:hover {
-  border-color: #c13525; /* Fire Engine Red */
+  background-color: #215d68; /* Match the hover effect of buttons */
+  transform: translateY(-5px); /* Add a slight movement on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
 }
 
 .li-selected {
@@ -145,6 +153,7 @@ li {
   padding: 1rem;
   margin-top: 2rem;
   border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8); /* Slightly opaque white background */
 }
 
 .container p {
@@ -160,23 +169,24 @@ li {
 /* Back button styles */
 button.back-btn {
   background-color: #dd6517; /* Spanish Orange */
-  color: #000; /* Black text */
+  color: #fff; /* White text */
 }
 
 button.back-btn:hover {
-  background-color: #f89408; /* Carrot Orange on hover */
+  background-color: #215d68; /* Match the hover effect of buttons */
 }
 
 /* Next button styles */
 button.next-btn {
   background-color: #53914d; /* Sea Green */
-  color: #000; /* Black text */
+  color: #fff; /* White text */
 }
 
 button.next-btn:hover {
-  background-color: #378e9e; /* Blue when hovered and selection is made */
+  background-color: #215d68; /* Match the hover effect of buttons */
 }
 
+/* Disabled Next button hover */
 button.next-btn.btn-disabled:hover {
   background-color: #f89408; /* Keep orange when hovering and no selection is made */
 }
@@ -209,7 +219,15 @@ button.next-btn.btn-disabled:hover {
   align-items: center; /* Vertically center the text */
   justify-content: center; /* Horizontally center the text */
   background-color: #53914d; /* Sea Green */
-  color: #000; /* Black text */
+  color: #fff; /* White text */
+  transition: all 0.3s ease; /* Transition for button hover effect */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Button shadow */
+}
+
+.add-btn:hover {
+  background-color: #215d68; /* Darker shade of Sea Green on hover */
+  transform: translateY(-5px); /* Move button up slightly on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow on hover */
 }
 
 .user-answers-list {
@@ -222,12 +240,7 @@ button.next-btn.btn-disabled:hover {
   margin-bottom: 9px; /* Match the spacing of other answers */
   padding: 16px 8px; /* Match the padding of other answers */
   border-radius: 8px; /* Match the border radius of other answers */
-  background-color: rgba(
-    55,
-    142,
-    158,
-    0.5
-  ); /* Match the background color and transparency */
+  background-color: rgba(55, 142, 158, 0.5); /* Match the background color and transparency */
   border: 1px solid lightgray;
   font-size: 1rem;
   color: #000; /* Black text */
@@ -236,6 +249,9 @@ button.next-btn.btn-disabled:hover {
 }
 
 .user-answer:hover {
+  background-color: #215d68; /* Match the hover effect of buttons */
+  transform: translateY(-5px); /* Add a slight movement on hover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
   cursor: pointer; /* Change cursor to pointer on hover */
 }
 
