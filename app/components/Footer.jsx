@@ -8,6 +8,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
+        bgcolor: "#F4E2D0",
         width: "100%",
         height: "auto",
         display: "flex",
@@ -15,7 +16,6 @@ const Footer = () => {
         alignItems: "center",
         justifyContent: "space-between",
         padding: "1rem 0",
-        borderTop: "1px solid #e0e0e0",
       }}
     >
       <Box

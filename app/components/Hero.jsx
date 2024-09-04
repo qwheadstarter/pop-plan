@@ -8,10 +8,32 @@ import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
 
 const Hero = () => {
+  const videos = [
+    "/assets/1.mp4",
+    "/assets/2.mp4",
+    "/assets/3.mp4",
+    "/assets/4.mp4",
+    "/assets/5.mp4",
+    "/assets/6.mp4",
+    "/assets/7.mp4",
+    "/assets/8.mp4",
+    "/assets/9.mp4",
+    "/assets/10.mp4",
+    "/assets/11.mp4",
+    "/assets/12.mp4",
+  ];
+
+  const getRandomVideo = () => {
+    const randomIndex = Math.floor(Math.random() * videos.length);
+    return videos[randomIndex];
+  };
+
+  const videoUrl = getRandomVideo();
+
   return (
     <div className="hero">
       <video className="background-video" autoPlay loop muted>
-        <source src="../assets/hero.mp4" type="video/mp4" />
+        <source src={videoUrl} type="video/mp4" />
       </video>
       <Container
         sx={{
