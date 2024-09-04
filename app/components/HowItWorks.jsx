@@ -135,5 +135,6 @@ const HowItWorks = forwardRef((props, ref) => (
     </Box>
   </div>
 ));
+HowItWorks.displayName = "HowItWorks";
 
 export default HowItWorks;
