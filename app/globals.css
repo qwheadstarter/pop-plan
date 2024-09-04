@@ -56,28 +56,30 @@
 
 /* QUIZ HOMEPAGE */
 
-html,
-body {
+
+.quiz-page {
   overflow-x: hidden;
-  /* background: linear-gradient(135deg, #ff512f, #f09819); Mimic profile page background */
+  background: linear-gradient(135deg, #ff512f, #f09819);
+  height: 100vh
 }
 
-main {
+.quiz-page main {
   padding: 1rem;
 }
 
+.quiz-page
 h1,
-h2 {
+.quiz-page h2 {
   color: #000; /* Black for headings */
 }
 
-h3 {
+.quiz-page h3 {
   padding-bottom: 2rem;
   color: #000; /* Black for subheadings */
   font-size: 1.8rem;
 }
 
-button {
+.quiz-page button {
   padding: 16px 8px;
   width: 100%;
   margin-top: 12px;
@@ -90,19 +92,19 @@ button {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Button shadow */
 }
 
-button:hover {
+.quiz-page button:hover {
   background-color: #215d68; /* Darker shade of Sea Green on hover */
   transform: translateY(-5px); /* Move button up slightly on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow on hover */
 }
 
-button.btn-disabled {
+.quiz-page button.btn-disabled {
   background-color: #ffbb43; /* Xanthous for disabled button */
   cursor: not-allowed;
   opacity: 0.6;
 }
 
-li {
+.quiz-page li {
   list-style-type: none;
   cursor: pointer;
   margin: 9px 0;
@@ -123,29 +125,29 @@ li {
   transition: all 0.3s ease;
 }
 
-.li-hover:hover {
+.quiz-page .li-hover:hover {
   background-color: #215d68; /* Match the hover effect of buttons */
   transform: translateY(-5px); /* Add a slight movement on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
 }
 
-.li-selected {
+.quiz-page .li-selected {
   border-color: #f89408; /* Carrot Orange */
   background-color: #ffbb43; /* Xanthous */
   color: #000; /* Black text for selected list items */
 }
 
-.checkmark {
+.quiz-page .checkmark {
   display: none;
   font-size: 1.5rem;
   color: #000; /* Black for checkmark */
 }
 
-.li-selected .checkmark {
+.quiz-page .li-selected .checkmark {
   display: inline; /* Display the checkmark when selected */
 }
 
-.container {
+.quiz-page .container {
   max-width: 740px;
   width: 100%;
   margin: auto;
@@ -159,42 +161,42 @@ li {
   background: rgba(255, 255, 255, 0.8); /* Slightly opaque white background */
 }
 
-.container p {
+.quiz-page .container p {
   padding: 8px 0;
 }
 
-.button-group {
+.quiz-page .button-group {
   display: flex;
   justify-content: flex-end;
   gap: 10px; /* Adds space between the buttons */
 }
 
 /* Back button styles */
-button.back-btn {
+.quiz-page button.back-btn {
   background-color: #dd6517; /* Spanish Orange */
   color: #fff; /* White text */
 }
 
-button.back-btn:hover {
+.quiz-page button.back-btn:hover {
   background-color: #215d68; /* Match the hover effect of buttons */
 }
 
 /* Next button styles */
-button.next-btn {
+.quiz-page button.next-btn {
   background-color: #53914d; /* Sea Green */
   color: #fff; /* White text */
 }
 
-button.next-btn:hover {
+.quiz-page button.next-btn:hover {
   background-color: #215d68; /* Match the hover effect of buttons */
 }
 
 /* Disabled Next button hover */
-button.next-btn.btn-disabled:hover {
+.quiz-page button.next-btn.btn-disabled:hover {
   background-color: #f89408; /* Keep orange when hovering and no selection is made */
 }
 
-.input-group {
+.quiz-page .input-group {
   display: flex;
   align-items: center;
   margin-top: 1rem;
@@ -202,7 +204,7 @@ button.next-btn.btn-disabled:hover {
   gap: 5px; /* Adds 5px gap between the input field and the button */
 }
 
-.input-field {
+.quiz-page .input-field {
   flex: 3; /* Occupies 3/4 of the row */
   font-size: 1rem;
   border-radius: 4px;
@@ -212,7 +214,7 @@ button.next-btn.btn-disabled:hover {
   box-sizing: border-box; /* Ensures padding is included in the height */
 }
 
-.add-btn {
+.quiz-page .add-btn {
   flex: 1; /* Occupies 1/4 of the row */
   font-size: 1rem;
   height: 40px; /* Matches the fixed height of the input field */
@@ -227,17 +229,17 @@ button.next-btn.btn-disabled:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Button shadow */
 }
 
-.add-btn:hover {
+.quiz-page .add-btn:hover {
   background-color: #215d68; /* Darker shade of Sea Green on hover */
   transform: translateY(-5px); /* Move button up slightly on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow on hover */
 }
 
-.user-answers-list {
+.quiz-page .user-answers-list {
   margin-bottom: 1rem; /* Adds space below the list of user answers */
 }
 
-.user-answer {
+.quiz-page .user-answer {
   display: flex;
   align-items: center;
   margin-bottom: 9px; /* Match the spacing of other answers */
@@ -256,14 +258,14 @@ button.next-btn.btn-disabled:hover {
   position: relative;
 }
 
-.user-answer:hover {
+.quiz-page .user-answer:hover {
   background-color: #215d68; /* Match the hover effect of buttons */
   transform: translateY(-5px); /* Add a slight movement on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
   cursor: pointer; /* Change cursor to pointer on hover */
 }
 
-.user-answer:hover::after {
+.quiz-page .user-answer:hover::after {
   content: "Click to delete";
   color: #000; /* Black text for the tooltip */
   position: absolute;
@@ -277,14 +279,15 @@ button.next-btn.btn-disabled:hover {
   z-index: 1;
 }
 
-.user-answer span {
+.quiz-page .user-answer span {
   flex-grow: 1;
   margin-right: 5px;
 }
 
-.button-group {
+.quiz-page .button-group {
   margin-top: 1rem; /* Adds padding above the Back and Next buttons */
 }
+
 
 /* PROFILE HOMEPAGE */
 
@@ -297,6 +300,7 @@ button.next-btn.btn-disabled:hover {
   background: linear-gradient(135deg, #ff512f, #f09819);
   padding: 50px 0;
   text-align: center;
+  height: 100vh;
   border-bottom: 5px solid #ff512f;
 }
 
@@ -445,4 +449,20 @@ button.next-btn.btn-disabled:hover {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
+}
+
+/* Hide the actual file input */
+#file-upload {
+  display: none;
+}
+
+/* Style for the "Edit Profile Picture" button */
+.file-upload-label {
+  cursor: pointer;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
 }

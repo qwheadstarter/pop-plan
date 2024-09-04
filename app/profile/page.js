@@ -295,13 +295,19 @@ export default function Profile() {
               >
                 Exit
               </button>
-              <form onSubmit={handleEditProfileImage} className="custom-button">
-                <label>
-                  Edit Profile Picture
-                  <input type="file" accept="image/*" />
-                </label>
-                <button type="submit">Update</button>
+                <form onSubmit={handleEditProfileImage} className="custom-button">
+                  <label htmlFor="file-upload" className="file-upload-label">
+                    Edit Profile Picture
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                />
+                <button type="submit"></button>
               </form>
+
             </div>
           </div>
         </div>

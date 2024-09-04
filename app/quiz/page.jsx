@@ -13,11 +13,13 @@ import {
 import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user management
 import { quiz } from "/data.js";
 import "@/app/globals.css";
+import { useRouter } from "next/navigation";
 //import Header from "@/app/components/header";
 //import Footer from "@/app/components/footer";
 
 const Page = () => {
   const { user } = useUser(); // Get the currently logged-in user
+  const router = useRouter();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswerIndices, setSelectedAnswerIndices] = useState([]);
   const [userInput, setUserInput] = useState(""); // To store user input
@@ -143,10 +145,13 @@ const Page = () => {
     });
 
     await batch.commit();
-    alert("Saved successfully");
+  
+    // Redirect to profile page after saving results
+    router.push("/profile");
   };
 
   return (
+    <div className="quiz-page">
     <div className="container">
       <h1>Quiz Page</h1>
       <div>
@@ -292,11 +297,13 @@ const Page = () => {
                 </ul>
               </div>
             ))}
-            <button onClick={saveResults}>Save Results</button>
+            <button onClick={saveResults}>Submit</button>
           </div>
         )}
       </div>
     </div>
+  </div>
+
   );
 };
 
