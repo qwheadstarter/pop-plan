@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        bgcolor: "#a3a3a3",
+        bgcolor: "#1A1E26",
         width: "100%",
         height: "auto",
         display: "flex",
@@ -28,10 +28,10 @@ const Footer = () => {
         }}
       >
         <Box sx={{ maxWidth: "sm" }}>
-          <Typography sx={{ color: "#161a1d", fontWeight: "bold" }}>
+          <Typography sx={{ color: "#ffffff", fontWeight: "bold" }}>
             About Pop Plan
           </Typography>
-          <Typography sx={{ color: "#161a1d", fontSize: "16px" }}>
+          <Typography sx={{ color: "#ffffff", fontSize: "16px" }}>
             Discover your next adventure with Poppy, your personalized itinerary
             planner. Whether you’re exploring new cities or revisiting your
             favorite spots, Poppy curates experiences just for you. Let’s make
@@ -43,7 +43,7 @@ const Footer = () => {
           <XIcon
             sx={{
               cursor: "pointer",
-              color: "#161a1d",
+              color: "#ffffff",
               width: "50px",
               height: "50px",
             }}
@@ -51,7 +51,7 @@ const Footer = () => {
           <Instagram
             sx={{
               cursor: "pointer",
-              color: "#161a1d",
+              color: "#ffffff",
               width: "50px",
               height: "50px",
             }}
@@ -59,7 +59,7 @@ const Footer = () => {
           <Facebook
             sx={{
               cursor: "pointer",
-              color: "#161a1d",
+              color: "#ffffff",
               width: "50px",
               height: "50px",
             }}
@@ -68,7 +68,7 @@ const Footer = () => {
       </Box>
 
       <Box sx={{ paddingTop: "1rem" }}>
-        <Typography variant="body1" sx={{ color: "#161a1d" }}>
+        <Typography variant="body1" sx={{ color: "#ffffff" }}>
           &copy; {new Date().getFullYear()} Pop-Plan. All rights reserved.
         </Typography>
       </Box>

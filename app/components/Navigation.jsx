@@ -95,7 +95,7 @@ const Navigation = () => {
             <ListItemText primary="Chat" />
           </ListItem>
         </Link>
-        <Link
+        {/* <Link
           href="/about"
           passHref
           style={{
@@ -107,7 +107,7 @@ const Navigation = () => {
           <ListItem button key="About">
             <ListItemText primary="About" />
           </ListItem>
-        </Link>
+        </Link> */}
         <Link
           href="/contact"
           passHref

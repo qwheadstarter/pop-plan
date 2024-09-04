@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 import React, { useState } from "react";
-import { db } from "/firebase";
+import { db } from "../firebase";
 import {
   deleteDoc,
   getDoc,
@@ -145,103 +145,27 @@ const Page = () => {
     });
 
     await batch.commit();
-  
+
     // Redirect to profile page after saving results
     router.push("/profile");
   };
 
   return (
     <div className="quiz-page">
-    <div className="container">
-      <h1>Quiz Page</h1>
-      <div>
-        <h2>
-          Question: {activeQuestion + 1}
-          <span>/{questions.length}</span>
-        </h2>
-      </div>
-      <div>
-        {!showResult ? (
-          <div className="quiz-container">
-            <h3>{question}</h3>
-            {questions[activeQuestion].id === 6 ? (
-              <>
-                <ul>
-                  {answers.map((answer, idx) => (
-                    <li
-                      key={idx}
-                      onClick={() => onAnswerSelected(idx)}
-                      className={
-                        selectedAnswerIndices.includes(idx)
-                          ? "li-selected"
-                          : "li-hover"
-                      }
-                    >
-                      <span>{answer}</span>
-                      {selectedAnswerIndices.includes(idx) && (
-                        <span className="checkmark">✔</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                {showInputField && (
-                  <>
-                    <ul className="user-answers-list">
-                      {userAnswers.map((answer, idx) => (
-                        <li
-                          key={idx}
-                          className="user-answer"
-                          onClick={() => removeUserAnswer(idx)}
-                        >
-                          <span>{answer}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        value={userInput}
-                        onChange={handleInputChange}
-                        placeholder="Type your answer"
-                        className="input-field"
-                      />
-                      <button onClick={addUserAnswer} className="btn add-btn">
-                        Add
-                      </button>
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                {(answers[0] === "" && questions[activeQuestion].id !== 6) ||
-                showInputField ? (
-                  <>
-                    <ul className="user-answers-list">
-                      {userAnswers.map((answer, idx) => (
-                        <li
-                          key={idx}
-                          className="user-answer"
-                          onClick={() => removeUserAnswer(idx)}
-                        >
-                          <span>{answer}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="input-group">
-                      <input
-                        type="text"
-                        value={userInput}
-                        onChange={handleInputChange}
-                        placeholder="Type your answer"
-                        className="input-field"
-                      />
-                      <button onClick={addUserAnswer} className="btn add-btn">
-                        Add
-                      </button>
-                    </div>
-                  </>
-                ) : (
+      <div className="container">
+        <h1>Quiz Page</h1>
+        <div>
+          <h2>
+            Question: {activeQuestion + 1}
+            <span>/{questions.length}</span>
+          </h2>
+        </div>
+        <div>
+          {!showResult ? (
+            <div className="quiz-container">
+              <h3>{question}</h3>
+              {questions[activeQuestion].id === 6 ? (
+                <>
                   <ul>
                     {answers.map((answer, idx) => (
                       <li
@@ -260,50 +184,126 @@ const Page = () => {
                       </li>
                     ))}
                   </ul>
-                )}
-              </>
-            )}
-            <div className="button-group">
-              {activeQuestion > 0 && (
-                <button onClick={prevQuestion} className="btn back-btn">
-                  Back
-                </button>
+                  {showInputField && (
+                    <>
+                      <ul className="user-answers-list">
+                        {userAnswers.map((answer, idx) => (
+                          <li
+                            key={idx}
+                            className="user-answer"
+                            onClick={() => removeUserAnswer(idx)}
+                          >
+                            <span>{answer}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          value={userInput}
+                          onChange={handleInputChange}
+                          placeholder="Type your answer"
+                          className="input-field"
+                        />
+                        <button onClick={addUserAnswer} className="btn add-btn">
+                          Add
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </>
+              ) : (
+                <>
+                  {(answers[0] === "" && questions[activeQuestion].id !== 6) ||
+                  showInputField ? (
+                    <>
+                      <ul className="user-answers-list">
+                        {userAnswers.map((answer, idx) => (
+                          <li
+                            key={idx}
+                            className="user-answer"
+                            onClick={() => removeUserAnswer(idx)}
+                          >
+                            <span>{answer}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          value={userInput}
+                          onChange={handleInputChange}
+                          placeholder="Type your answer"
+                          className="input-field"
+                        />
+                        <button onClick={addUserAnswer} className="btn add-btn">
+                          Add
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <ul>
+                      {answers.map((answer, idx) => (
+                        <li
+                          key={idx}
+                          onClick={() => onAnswerSelected(idx)}
+                          className={
+                            selectedAnswerIndices.includes(idx)
+                              ? "li-selected"
+                              : "li-hover"
+                          }
+                        >
+                          <span>{answer}</span>
+                          {selectedAnswerIndices.includes(idx) && (
+                            <span className="checkmark">✔</span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
               )}
-              <button
-                onClick={nextQuestion}
-                className={`btn next-btn ${
-                  selectedAnswerIndices.length > 0 || userAnswers.length > 0
-                    ? ""
-                    : "btn-disabled"
-                }`}
-                disabled={
-                  selectedAnswerIndices.length === 0 && userAnswers.length === 0
-                }
-              >
-                {activeQuestion === questions.length - 1 ? "Finish" : "Next"}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="quiz-container">
-            <h3>Your Answers</h3>
-            {answersGiven.map((answers, idx) => (
-              <div key={idx}>
-                <p>Question {idx + 1}:</p>
-                <ul>
-                  {answers.map((answer, answerIdx) => (
-                    <li key={answerIdx}>{answer}</li>
-                  ))}
-                </ul>
+              <div className="button-group">
+                {activeQuestion > 0 && (
+                  <button onClick={prevQuestion} className="btn back-btn">
+                    Back
+                  </button>
+                )}
+                <button
+                  onClick={nextQuestion}
+                  className={`btn next-btn ${
+                    selectedAnswerIndices.length > 0 || userAnswers.length > 0
+                      ? ""
+                      : "btn-disabled"
+                  }`}
+                  disabled={
+                    selectedAnswerIndices.length === 0 &&
+                    userAnswers.length === 0
+                  }
+                >
+                  {activeQuestion === questions.length - 1 ? "Finish" : "Next"}
+                </button>
               </div>
-            ))}
-            <button onClick={saveResults}>Submit</button>
-          </div>
-        )}
+            </div>
+          ) : (
+            <div className="quiz-container">
+              <h3>Your Answers</h3>
+              {answersGiven.map((answers, idx) => (
+                <div key={idx}>
+                  <p>Question {idx + 1}:</p>
+                  <ul>
+                    {answers.map((answer, answerIdx) => (
+                      <li key={answerIdx}>{answer}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+              <button onClick={saveResults}>Submit</button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-
   );
 };
 
