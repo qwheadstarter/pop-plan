@@ -42,6 +42,7 @@ const ChatBox = () => {
       const formattedPrompt = `
       Here is the user’s quiz data in JSON format:
       ${quizResultsJSON}
+      
 
       Based on this information, please plan a day for me in San Diego, focusing on food and sports.`;
 
