@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user management
 import { quiz } from "/data.js";
-import "@/app/styles1.css";
+import "@/app/globals.css";
 //import Header from "@/app/components/header";
 //import Footer from "@/app/components/footer";
 
