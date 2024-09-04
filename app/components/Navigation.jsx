@@ -204,7 +204,7 @@ const Navigation = () => {
                 ml: 2,
               }}
             >
-              Pop Plan
+              Pop-Plan
             </Typography>
           </Box>
 
