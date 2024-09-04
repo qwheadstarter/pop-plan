@@ -1,5 +1,5 @@
 import { Box, TextField, Typography, Button } from "@mui/material";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, increment, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
@@ -43,6 +43,16 @@ const ChatBox = () => {
     }
   };
 
+  const incrementUserPlansGenerated = async () => {
+    if (!user) return;
+
+    const userDocRef = doc(collection(db, "users"), user.id);
+
+    await updateDoc(userDocRef, {
+      plansGenerated: increment(1)
+    });
+  }
+
   const handleSubmit = async () => {
     if (!prompt.trim()) {
       alert("Please enter a prompt to generate recommendations");
@@ -68,6 +78,8 @@ const ChatBox = () => {
       // Parse and format the itinerary data
       const formattedResponse = formatItinerary(data);
       setResponse(formattedResponse);
+
+      incrementUserPlansGenerated();
     } catch (error) {
       console.error("Error generating recommendations: ", error);
       alert(

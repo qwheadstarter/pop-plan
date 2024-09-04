@@ -6,8 +6,8 @@ const InfoCards = () => {
 
   return (
     <div>
-      {detailedPlaces.length > 0 ? (
-        detailedPlaces.map((place, index) => (
+      {placeDetails.length > 0 ? (
+        placeDetails.map((place, index) => (
           <div key={index} className="place-card">
             <img src={place.photoUrl} alt={place.name} />
             <h3>{place.name}</h3>
