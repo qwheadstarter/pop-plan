@@ -56,7 +56,7 @@ const Hero = () => {
             2000,
             "Let Poppy Map Out Your Ideal Day",
             2000,
-            "Uncover Local Treasures Tailored to You",
+            "Find Unique Spots Catered to Your Tastes",
             2000,
             "Personalize Your Adventure, Every Step of the Way",
             2000,

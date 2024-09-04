@@ -3,7 +3,7 @@
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/header";
 import "@/app/globals.css";
-import { db } from "/firebase";
+import { db } from "../firebase";
 import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
 import {
