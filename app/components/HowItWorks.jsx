@@ -135,6 +135,7 @@ const HowItWorks = forwardRef((props, ref) => (
     </Box>
   </div>
 ));
+HowItWorks.displayName = "HowItWorks";
 
 HowItWorks.displayName = 'HowItWorks';
 

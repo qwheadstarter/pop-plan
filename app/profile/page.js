@@ -18,6 +18,7 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -107,13 +108,14 @@ export default function Profile() {
     }
   };
 
-  const handleEditProfileImage = async (e) => {
-    e.preventDefault();
-    const image = e.target[0]?.files[0];
+  const handleEditProfileImage = async (event) => {
+    event.preventDefault();
+    const image = event.target.files[0];
     if (image) {
       const storage = getStorage();
 
-      const imageRef = ref(storage, `${user.id}/profileImage/${image.name}`);
+      const imagePath = `${user.id}/profileImage/${image.name}`;
+      const imageRef = ref(storage, imagePath);
       await uploadBytesResumable(imageRef, image);
 
       const imageUrl = await getDownloadURL(imageRef);
@@ -123,11 +125,22 @@ export default function Profile() {
       const docSnap = await getDoc(userDocRef);
 
       if (docSnap.exists()) {
+        // delete old profile image from storage
+        const oldImagePath = docSnap.data().profileImagePath;
+        if (oldImagePath) {
+          deleteObject(ref(storage, oldImagePath)).then(() => {
+            console.log(`Old profile image ${oldImagePath} deleted successfully`);
+          }).catch((error) => {
+            console.log(`Error deleting old profile image at ${oldImagePath}: ${error}`);
+          });
+        }
+
         batch.set(userDocRef, { profileImageUrl: imageUrl }, { merge: true });
+        batch.set(userDocRef, { profileImagePath: imagePath }, { merge: true });
       }
 
       await batch.commit();
-      alert("Saved successfully");
+      alert("Update successful");
 
       setProfileImageUrl(imageUrl);
     }
@@ -295,7 +308,7 @@ export default function Profile() {
               >
                 Exit
               </button>
-                <form onSubmit={handleEditProfileImage} className="custom-button">
+                <form className="custom-button">
                   <label htmlFor="file-upload" className="file-upload-label">
                     Edit Profile Picture
                   </label>
@@ -304,9 +317,9 @@ export default function Profile() {
                     type="file"
                     accept="image/*"
                     style={{ display: 'none' }}
-                />
-                <button type="submit"></button>
-              </form>
+                    onChange={handleEditProfileImage}
+                  />
+                </form>
 
             </div>
           </div>
