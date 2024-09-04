@@ -4,6 +4,7 @@ import React from "react";
 import { Container, Typography, Button, Box } from "@mui/material";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import { ArrowCircleDownOutlined } from "@mui/icons-material";
+import { TypeAnimation } from "react-type-animation";
 import Link from "next/link";
 
 const Hero = () => {
@@ -25,9 +26,26 @@ const Hero = () => {
         <Typography variant="h2" sx={{ fontWeight: "700" }}>
           Tailored Experiences, Just for You
         </Typography>
-        <Typography sx={{ fontSize: "26px", fontWeight: "600" }}>
-          From hidden gems to must-sees, craft a day in sync with what you love
-        </Typography>
+        <TypeAnimation
+          sequence={[
+            "From hidden gems to must-sees, craft a day in sync with what you love",
+            2000,
+            "Discover the City, One Experience at a Time",
+            2000,
+            "Let Poppy Map Out Your Ideal Day",
+            2000,
+            "Uncover Local Treasures Tailored to You",
+            2000,
+            "Personalize Your Adventure, Every Step of the Way",
+            2000,
+            "Explore, Enjoy, and Embrace What You Love",
+            2000,
+            "Your Interests, Your Itinerary, Your Day",
+          ]}
+          speed={50}
+          style={{ fontSize: "2em", fontWeight: "600" }}
+          repeat={Infinity}
+        />
 
         <Box
           sx={{
