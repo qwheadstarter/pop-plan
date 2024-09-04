@@ -1,5 +1,5 @@
 import { Box, TextField, Typography, Button } from "@mui/material";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, increment, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
@@ -53,6 +53,16 @@ const ChatBox = () => {
     }
   };
 
+  const incrementUserPlansGenerated = async () => {
+    if (!user) return;
+
+    const userDocRef = doc(collection(db, "users"), user.id);
+
+    await updateDoc(userDocRef, {
+      plansGenerated: increment(1)
+    });
+  }
+
   const handleSubmit = async () => {
     if (!prompt.trim()) {
       alert("Please enter a prompt to generate recommendations");
@@ -74,13 +84,34 @@ const ChatBox = () => {
       }
       const data = await response.json();
       console.log("Received Data from API:", data);
-      setResponse(data.response || "");
+
+      // Parse and format the itinerary data
+      const formattedResponse = formatItinerary(data);
+      setResponse(formattedResponse);
+
+      incrementUserPlansGenerated();
     } catch (error) {
       console.error("Error generating recommendations: ", error);
       alert(
         "An error occurred while generating recommendations. Please try again."
       );
     }
+  };
+
+  const formatItinerary = (data) => {
+    if (!data.intro || !data.itinerary || !Array.isArray(data.itinerary)) {
+      return "Sorry, I couldn't generate an itinerary at the moment.";
+    }
+
+    let formattedItinerary = `${data.intro}\n\n`;
+
+    data.itinerary.forEach((item, index) => {
+      formattedItinerary += `${index + 1}. **${item.time} - ${item.name}**\n`;
+      formattedItinerary += `   ${item.description}\n`;
+      formattedItinerary += `   - **Address:** ${item.address}\n\n`;
+    });
+
+    return formattedItinerary;
   };
 
   return (

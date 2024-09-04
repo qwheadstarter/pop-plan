@@ -31,9 +31,6 @@ const Map = ({ places }) => {
 
   const center = userLocation || { lat: 37.7749, lng: -122.4194 };
 
-  console.log("Map center:", center);
-  console.log("Places data:", places);
-
   return (
     <LoadScript googleMapsApiKey={API_KEY}>
       <GoogleMap

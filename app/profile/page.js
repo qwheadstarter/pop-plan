@@ -2,8 +2,8 @@
 
 import Footer from "@/app/components/Footer";
 import Header from "@/app/components/header";
-import "@/app/styles1.css";
-import { db } from "/firebase";
+import "@/app/globals.css";
+import { db } from "../firebase";
 import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
 import {
@@ -295,13 +295,19 @@ export default function Profile() {
               >
                 Exit
               </button>
-              <form onSubmit={handleEditProfileImage} className="custom-button">
-                <label>
-                  Edit Profile Picture
-                  <input type="file" accept="image/*" />
-                </label>
-                <button type="submit">Update</button>
+                <form onSubmit={handleEditProfileImage} className="custom-button">
+                  <label htmlFor="file-upload" className="file-upload-label">
+                    Edit Profile Picture
+                  </label>
+                  <input
+                    id="file-upload"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                />
+                <button type="submit"></button>
               </form>
+
             </div>
           </div>
         </div>
