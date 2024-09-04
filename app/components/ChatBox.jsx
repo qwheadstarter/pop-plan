@@ -6,53 +6,40 @@ import { db } from "../firebase";
 
 const ChatBox = () => {
   const [response, setResponse] = useState("");
-  const [prompt, setPrompt] = useState("");  // Ensure prompt starts empty
-  const [itinerary, setItinerary] = useState(null); // Stores the itinerary
-  const [conversationHistory, setConversationHistory] = useState([]); // Stores chat history
-  const [isLoading, setIsLoading] = useState(false); // Loading indicator
-  const [isSatisfied, setIsSatisfied] = useState(false); // Satisfaction flow flag
+  const [prompt, setPrompt] = useState("");
+  const [itinerary, setItinerary] = useState(null);
+  const [conversationHistory, setConversationHistory] = useState([]);
+  const [userProfile, setUserProfile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSatisfied, setIsSatisfied] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
     if (user) {
-      console.log("Fetching quiz results for user ID:", user.id);
       getQuizResults();
     }
   }, [user]);
 
   const getQuizResults = async () => {
     if (!user) return;
-
     try {
       const quizCollectionRef = collection(db, `users/${user.id}/Quiz Results`);
       const quizSnapshot = await getDocs(quizCollectionRef);
-
-      if (quizSnapshot.empty) {
-        console.log("No quiz results found for this user.");
-        return;
+      if (!quizSnapshot.empty) {
+        const fetchedQuizResults = [];
+        quizSnapshot.forEach((doc) => fetchedQuizResults.push(doc.data()));
+        setUserProfile(fetchedQuizResults);
       }
-
-      const fetchedQuizResults = [];
-      quizSnapshot.forEach((doc) => {
-        const quizData = doc.data();
-        fetchedQuizResults.push(quizData);
-      });
-
-      const quizResultsJSON = JSON.stringify(fetchedQuizResults, null, 2);
-      setPrompt("");  // Clear any preset data from the prompt
-
     } catch (error) {
-      console.error("Error fetching quiz results: ", error);
+      console.error("Error fetching quiz results:", error);
     }
   };
 
   const incrementUserPlansGenerated = async () => {
-    if (!user) return;
-
-    const userDocRef = doc(collection(db, "users"), user.id);
-    await updateDoc(userDocRef, {
-      plansGenerated: increment(1)
-    });
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      await updateDoc(userDocRef, { plansGenerated: increment(1) });
+    }
   };
 
   const handleSubmit = async () => {
@@ -61,46 +48,45 @@ const ChatBox = () => {
       return;
     }
     setIsLoading(true);
-    setConversationHistory((prev) => [...prev, { role: "user", content: prompt }]);
+    const updatedConversationHistory = [...conversationHistory, { role: "user", content: prompt }];
+    setConversationHistory(updatedConversationHistory);
 
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt,
+          conversationHistory: updatedConversationHistory,
+          userProfile,
+        }),
       });
-
-      if (!response.ok) {
-        throw new Error(`Failed to generate recommendations: ${response.statusText}`);
-      }
-
+      
       const data = await response.json();
       const parsedData = JSON.parse(data.response);
-      const formattedItinerary = formatItinerary(parsedData);
-      setItinerary(formattedItinerary);
+      setItinerary(parsedData.itinerary);
+      setResponse(parsedData.intro);
+
       setConversationHistory((prev) => [
         ...prev,
-        { role: "assistant", content: "Here's your itinerary! Are you satisfied?" }
+        { role: "assistant", content: "Here's your itinerary! Are you satisfied?" },
       ]);
-      setIsSatisfied(true); // Show satisfaction buttons after generating the itinerary
-      setResponse(formattedItinerary);
+
+      setIsSatisfied(true);
       incrementUserPlansGenerated();
     } catch (error) {
-      console.error("Error generating recommendations: ", error);
-      alert("An error occurred while generating recommendations. Please try again.");
+      console.error("Error generating recommendations:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const formatItinerary = (data) => {
-    if (!data.intro || !data.itinerary || !Array.isArray(data.itinerary)) {
-      return "Sorry, I couldn't generate an itinerary at the moment.";
+  const formatItinerary = () => {
+    if (!itinerary || !Array.isArray(itinerary)) {
+      return <Typography variant="body2">No itinerary available.</Typography>;
     }
 
-    return data.itinerary.map((item, index) => (
+    return itinerary.map((item, index) => (
       <Card key={index} sx={{ mb: 2 }}>
         <CardContent>
           <Typography variant="h6">{`${item.time} - ${item.name}`}</Typography>
@@ -115,13 +101,13 @@ const ChatBox = () => {
     if (isSatisfied) {
       setConversationHistory((prev) => [
         ...prev,
-        { role: "assistant", content: "Great! Enjoy your day!" }
+        { role: "assistant", content: "Great! Enjoy your day!" },
       ]);
       setIsSatisfied(false);
     } else {
       setConversationHistory((prev) => [
         ...prev,
-        { role: "assistant", content: "Let's adjust the itinerary. What would you like to change?" }
+        { role: "assistant", content: "Let's adjust the itinerary. What would you like to change?" },
       ]);
       setIsSatisfied(false);
     }
@@ -130,7 +116,7 @@ const ChatBox = () => {
   return (
     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: 4 }}>
       {/* Chat box section */}
-      <Box sx={{ width: "40%", borderRight: "1px solid #ddd", paddingRight: 2 }}>
+      <Box sx={{ width: "30%", borderRight: "1px solid #ddd", paddingRight: 2 }}>
         <Typography variant="h6" sx={{ mb: 2 }}>Chat with Poppy</Typography>
 
         <Box sx={{ height: "300px", overflowY: "scroll", mb: 2 }}>
@@ -151,11 +137,9 @@ const ChatBox = () => {
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           fullWidth
-          placeholder="Type your message..." // Ensure prompt starts empty
+          placeholder="Type your message..."
           onKeyPress={(e) => {
-            if (e.key === "Enter") {
-              handleSubmit();
-            }
+            if (e.key === "Enter") handleSubmit();
           }}
           sx={{ mb: 2 }}
         />
@@ -163,6 +147,7 @@ const ChatBox = () => {
           {isLoading ? "Generating..." : "Send"}
         </Button>
 
+        {/* Move confirmation buttons here */}
         {isSatisfied && (
           <Box mt={2}>
             <Typography variant="body1">Are you satisfied with this itinerary?</Typography>
@@ -176,7 +161,7 @@ const ChatBox = () => {
       <Box sx={{ width: "50%", paddingLeft: 2 }}>
         <Typography variant="h6">Itinerary</Typography>
         {itinerary ? (
-          itinerary
+          formatItinerary()
         ) : (
           <Typography variant="body2" sx={{ color: "gray" }}>Itinerary will be displayed here once generated.</Typography>
         )}
