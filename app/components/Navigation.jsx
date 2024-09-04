@@ -37,37 +37,37 @@ const Navigation = () => {
         color: "#000",
         flexDirection: "column",
         width: "200px",
-        height: "100%", // Ensure full height to align items properly
+        height: "100%",
+        paddingTop: "64px",
       }}
     >
-      {/* Logo and User Button */}
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          alignItems: "center", // Center items vertically
-          justifyContent: "center", // Center items horizontally
-          // Add padding for spacing
+          alignItems: "center",
+          justifyContent: "center",
+          mt: "20px",
         }}
       >
         <img
           src="/assets/icon.png"
           alt="Pop Plan Logo"
-          style={{ marginTop: "20px", height: "50px", width: "50px" }}
+          style={{ height: "50px", width: "50px" }}
         />
-        <Typography variant="h4" sx={{ color: "#fff", mt: "1rem" }}>
+        <Typography variant="h4" sx={{ color: "#fff", ml: "1rem" }}>
           Pop Plan
         </Typography>
-      </Box>
-      <Box sx={{ ml: "1rem" }}>
+      </Box> */}
+
+      <Box sx={{ ml: "1rem", mt: "20px" }}>
         {user && (
-          <Box style={{ marginTop: "20px" }}>
+          <Box>
             <UserButton />
           </Box>
         )}
       </Box>
 
-      {/* Menu Items */}
       <List style={{ flexGrow: 1 }}>
         <Link
           href="/"
@@ -174,17 +174,41 @@ const Navigation = () => {
   return (
     <>
       <AppBar
-        position="absolute"
-        sx={{ bgcolor: "transparent", boxShadow: "none" }}
+        position="fixed"
+        sx={{
+          bgcolor: "rgba(0,0,0,0.20)",
+          boxShadow: "none",
+          width: "100%",
+          top: 0,
+          left: 0,
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
       >
         <Toolbar>
           <Box
             sx={{
-              flexGrow: 1,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
             }}
           >
-            <Link href="/" passHref></Link>
+            <img
+              src="/assets/icon.png"
+              alt="Pop Plan Logo"
+              style={{ height: "50px", width: "50px" }}
+            />
+            <Typography
+              sx={{
+                fontSize: "45px",
+                color: "#fff",
+                ml: 2,
+              }}
+            >
+              Pop Plan
+            </Typography>
           </Box>
+
+          <Box sx={{ flexGrow: 1 }} />
 
           <IconButton
             edge="start"
@@ -203,6 +227,7 @@ const Navigation = () => {
           >
             <MenuIcon
               sx={{
+                color: "#fff",
                 width: "40px",
                 height: "40px",
                 boxShadow: "none",
@@ -222,7 +247,8 @@ const Navigation = () => {
           "& .MuiDrawer-paper": {
             width: "220px",
             boxSizing: "border-box",
-            bgcolor: "rgba(0, 0, 0, 0.20)", // Dark background with opacity
+            bgcolor: "rgba(0, 0, 0, 0.20)",
+            zIndex: (theme) => theme.zIndex.drawer - 1,
           },
         }}
       >
