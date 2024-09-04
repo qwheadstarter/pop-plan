@@ -21,6 +21,8 @@ const Hero = () => {
     "/assets/10.mp4",
     "/assets/11.mp4",
     "/assets/12.mp4",
+    "/assets/13.mp4",
+    "/assets/14.mp4",
   ];
 
   const getRandomVideo = () => {
@@ -45,7 +47,7 @@ const Hero = () => {
           color: "#fff",
         }}
       >
-        <Typography variant="h2" sx={{ fontWeight: "700" }}>
+        <Typography variant="h2" sx={{ color: "#fff", fontWeight: "700" }}>
           Tailored Experiences, Just for You
         </Typography>
         <TypeAnimation
