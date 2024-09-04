@@ -22,7 +22,9 @@ const InfoCards = () => {
   const handleSubmit = async () => {
     setError(null);
     try {
-      const response = await fetch(`/api/placeDetails?address=${address}`);
+      const response = await fetch(
+        `/api/fetchPlaceDetails?address=${encodeURIComponent(address)}`
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
