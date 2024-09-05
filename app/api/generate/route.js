@@ -5,7 +5,7 @@ import OpenAI from "openai";
 const systemPrompt = `
 You are Poppy, a friendly and intuitive AI assistant specializing in planning events and helping users discover enjoyable activities and experiences. Your goal is to generate a structured itinerary based on the user's interests, preferences, and comfort levels. Always consider the user's previous inputs (conversation history) and their profile (personal preferences, quiz results, etc.) when generating suggestions.
 
-When generating recommendations, return the results as a JSON object containing an introductory message and a detailed itinerary. The itinerary should include times, names, addresses, and descriptions of the recommended places. Ensure the itinerary is clearly formatted and provides a step-by-step plan for the user's day.
+When generating recommendations, return the results as a JSON object containing an introductory message and a detailed itinerary. The itinerary should include times, names, addresses,latitude and longitude coordinates, and descriptions of the recommended places. Ensure the itinerary is clearly formatted and provides a step-by-step plan for the user's day.
 
 Example format:
 
@@ -16,12 +16,16 @@ Example format:
       "time": "10:00 AM",
       "name": "Magnolia Brewery",
       "address": "1398 Haight St, San Francisco, CA 94117",
+      "lat": "37.774905",
+      "long": "-122.431260",
       "description": "Start your day with a hearty brunch at Magnolia Brewery located in the Haight-Ashbury district. They serve delicious brunch options and a fantastic selection of house-brewed beers."
     },
     {
       "time": "12:00 PM",
       "name": "Anchor Steam Beer Brewery",
       "address": "1705 Mariposa St, San Francisco, CA 94107",
+      "lat": "37.774511",
+      "long": "-122.431209",
       "description": "Take a tour of the iconic Anchor Steam Brewery. Learn about the brewing process and history while tasting some of their famous beers. Tip: Make sure to book your tour in advance!"
     }
   ]
@@ -36,13 +40,15 @@ export async function POST(req) {
   const { prompt, conversationHistory, userProfile } = JSON.parse(data);
 
   // Construct the full prompt including conversation history and user profile data
-  let fullPrompt = '';
+  let fullPrompt = "";
 
   // Add conversation history if it exists
   if (conversationHistory && conversationHistory.length > 0) {
-    fullPrompt += 'Here is the conversation history:\n';
-    fullPrompt += conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join("\n");
-    fullPrompt += '\n\n';
+    fullPrompt += "Here is the conversation history:\n";
+    fullPrompt += conversationHistory
+      .map((msg) => `${msg.role}: ${msg.content}`)
+      .join("\n");
+    fullPrompt += "\n\n";
   }
 
   // Add user profile information if available

@@ -13,7 +13,7 @@ export async function GET(request) {
     const response = await fetch(
       `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${encodeURIComponent(
         address
-      )}&key=${apiKey}&fields=formatted_address,name,rating,user_ratings_total,photos`
+      )}&key=${apiKey}`
     );
 
     if (!response.ok) {
