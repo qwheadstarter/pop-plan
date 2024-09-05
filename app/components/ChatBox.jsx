@@ -19,6 +19,7 @@ import { ExpandMoreOutlined } from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
+import { doc, getDocs, setDoc, collection } from "firebase/firestore";
 
 const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
