@@ -29,7 +29,7 @@ export async function POST(req) {
           price_data: {
               currency: 'usd',
               product_data:{
-                  name: 'Pro Subscription'
+                  name: 'Explorer Plan'
               },
               unit_amount: formatAmountForStripe(10), 
               recurring: {
