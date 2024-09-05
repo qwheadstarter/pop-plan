@@ -93,7 +93,7 @@
 
 .quiz-page {
   overflow-x: hidden;
-  background: linear-gradient(135deg, #ff512f, #f09819);
+  background: linear-gradient(to bottom, #378E9E, #AE2012);
   height: 100vh;
 }
 
@@ -120,13 +120,13 @@
   border-radius: 4px;
   cursor: pointer;
   color: #fff; /* White text on buttons */
-  background-color: #378e9e; /* Sea Green for buttons */
+  background-color: #378e9e; /* blue for buttons */
   transition: all 0.3s ease; /* Transition for button hover effect */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Button shadow */
 }
 
 .quiz-page button:hover {
-  background-color: #215d68; /* Darker shade of Sea Green on hover */
+  background-color: #215d68; /* Darker shade of blue on hover */
   transform: translateY(-5px); /* Move button up slightly on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow on hover */
 }
@@ -329,7 +329,7 @@
 }
 
 .profile-hero {
-  background: linear-gradient(135deg, #ff512f, #f09819);
+  background: linear-gradient(to bottom, #378E9E, #AE2012);
   padding: 50px 0;
   text-align: center;
   height: 100vh;
@@ -392,20 +392,6 @@
   color: #333;
   font-size: 2rem;
   margin: 20px 0;
-}
-
-.results-container {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-}
-
-.result-text {
-  color: #333;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
 }
 
 .overlay {
@@ -497,4 +483,113 @@
   display: inline-block;
   padding: 0;
   font-size: inherit;
+}
+
+/* Quiz results container */
+.results-container {
+  background-color: rgba(255, 255, 255, 0.8); /* White with slight transparency */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Align text to the left for better readability */
+  width: 60%;
+  max-width: 800px; /* Optional max width to prevent overly large containers */
+  margin: 20px auto 0 auto; /* Auto centers horizontally, and adds space on top */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* Quiz result text styling */
+.result-text {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 15px; /* Space between results */
+  font-weight: 400;
+}
+
+.result-text strong {
+  font-weight: 600;
+  color: #ff512f; /* Highlight category titles */
+}
+
+
+/* Plans Page CSS*/
+
+
+/* Plans Section Wrapper */
+.plans {
+  /* Background Gradient */
+  background: linear-gradient(to bottom, #378E9E, #AE2012);
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  padding: 20px; /* Optional padding for inner content */
+}
+
+.plans h1 {
+  color: #D4523B; /* Jasper */
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.plans p {
+  color: #000000; /*Black for soft text */
+  font-size: 1.2rem;
+}
+
+/* Section Splits */
+.plans .section {
+  background-color: #FFBB43; /* Xanthous */
+  padding: 50px;
+  margin: 50px 0;
+  border-radius: 15px;
+  color: #333;
+  text-align: center;
+}
+
+/* Shape Overlay */
+.plans .circle {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background-color: rgba(244, 226, 208, 0.7); /* Almond with transparency */
+  border-radius: 50%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Example of button styling */
+.plans button {
+  background-color: #F4E2D0; /* almond */
+  border: none;
+  color: #215d68;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.plans button:hover {
+  background-color:#ffba4389; /* Xanthous hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .plans h1 {
+    font-size: 2.5rem;
+  }
+
+  .plans p {
+    font-size: 1rem;
+  }
+
+  .plans .section {
+    padding: 30px;
+  }
+
+  .plans .circle {
+    width: 100px;
+    height: 100px;
+  }
 }

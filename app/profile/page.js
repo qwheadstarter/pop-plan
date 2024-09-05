@@ -204,108 +204,107 @@ export default function Profile() {
           >
             {showLocation ? "Hide Location" : "Update Location"}
           </button>
+  
+          {/* Render the quiz results here, under the buttons */}
+          {showQuizResults && (
+            <div className="results-container">
+              {quizResults.map((result, idx) => (
+                <p key={idx} className="result-text">
+                  <strong>{result.category}</strong>:{" "}
+                  {Array.isArray(result.answer)
+                    ? result.answer.join(", ")  // This will render the array as a comma-separated list
+                    : result.answer}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
-
-      {/* Conditionally render the confirmation view for retaking quiz */}
-      {confirmRetake && (
-        <div className="overlay">
-          <div className="confirmation-box">
-            <h3 className="content-title">
-              Are you sure you want to retake your preference quiz?
-            </h3>
-            <p>
-              All previous results will be lost and replaced with the new
-              results.
-            </p>
-            <div className="expanded-buttons-wrapper">
-              <button className="custom-button" onClick={handleYesRetake}>
-                Yes, Retake Quiz
-              </button>
-              <button className="custom-button" onClick={handleNoGoBack}>
-                No, Go Back
-              </button>
+  
+        {/* Conditionally render the confirmation view for retaking quiz */}
+        {confirmRetake && (
+          <div className="overlay">
+            <div className="confirmation-box">
+              <h3 className="content-title">
+                Are you sure you want to retake your preference quiz?
+              </h3>
+              <p>
+                All previous results will be lost and replaced with the new
+                results.
+              </p>
+              <div className="expanded-buttons-wrapper">
+                <button className="custom-button" onClick={handleYesRetake}>
+                  Yes, Retake Quiz
+                </button>
+                <button className="custom-button" onClick={handleNoGoBack}>
+                  No, Go Back
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Regular Profile Content */}
-      {!confirmRetake && !showProfileImage && (
-        <div className="content">
-          {showQuizResults && (
-            <>
-              <h3 className="content-title">Quiz Results</h3>
-              <div className="results-container">
-                {quizResults.map((result, idx) => (
-                  <p key={idx} className="result-text">
-                    <strong>{result.category}</strong>:{" "}
-                    <span>{JSON.stringify(result.answer, null, 2)}</span>
-                  </p>
-                ))}
-              </div>
-            </>
-          )}
-
-          {showLocation && (
-            <>
-              <h3 className="content-title">Your Location</h3>
-              {!locationPermission && (
-                <>
-                  <button
-                    className="custom-button"
-                    onClick={handleGiveLocationPermission}
-                  >
-                    Give Location Permission
-                  </button>
-                  {locationError && (
-                    <div className="location-input-container">
-                      <input
-                        type="text"
-                        className="location-input"
-                        placeholder="Enter your ZIP Code"
-                        value={zipCode}
-                        onChange={(e) => setZipCode(e.target.value)}
-                      />
-                      <button
-                        className="custom-button"
-                        onClick={handleZipCodeSubmit}
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  )}
-                </>
-              )}
-              {locationPermission && userLocation && (
-                <div>
-                  <p>Your location is:</p>
-                  <p>Latitude: {userLocation.latitude}</p>
-                  <p>Longitude: {userLocation.longitude}</p>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      )}
-
-      {/* Conditionally render the expanded profile image view */}
-      {showProfileImage && (
-        <div className="overlay">
-          <div className="expanded-profile-container">
-            <img
-              src={profileImageUrl || "/profile/defaultPic.png"}
-              alt="Expanded Profile"
-              className="expanded-profile-image"
-              style={{ width: "300px", height: "300px" }} // Ensure image is doubled in size
-            />
-            <div className="expanded-buttons-wrapper">
-              <button
-                className="custom-button"
-                onClick={() => setShowProfileImage(false)}
-              >
-                Exit
-              </button>
+        )}
+  
+        {/* Regular Profile Content */}
+        {!confirmRetake && !showProfileImage && (
+          <div className="content">
+            {showLocation && (
+              <>
+                <h3 className="content-title">Your Location</h3>
+                {!locationPermission && (
+                  <>
+                    <button
+                      className="custom-button"
+                      onClick={handleGiveLocationPermission}
+                    >
+                      Give Location Permission
+                    </button>
+                    {locationError && (
+                      <div className="location-input-container">
+                        <input
+                          type="text"
+                          className="location-input"
+                          placeholder="Enter your ZIP Code"
+                          value={zipCode}
+                          onChange={(e) => setZipCode(e.target.value)}
+                        />
+                        <button
+                          className="custom-button"
+                          onClick={handleZipCodeSubmit}
+                        >
+                          Submit
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+                {locationPermission && userLocation && (
+                  <div>
+                    <p>Your location is:</p>
+                    <p>Latitude: {userLocation.latitude}</p>
+                    <p>Longitude: {userLocation.longitude}</p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        )}
+  
+        {/* Conditionally render the expanded profile image view */}
+        {showProfileImage && (
+          <div className="overlay">
+            <div className="expanded-profile-container">
+              <img
+                src={profileImageUrl || "/profile/defaultPic.png"}
+                alt="Expanded Profile"
+                className="expanded-profile-image"
+                style={{ width: "300px", height: "300px" }} // Ensure image is doubled in size
+              />
+              <div className="expanded-buttons-wrapper">
+                <button
+                  className="custom-button"
+                  onClick={() => setShowProfileImage(false)}
+                >
+                  Exit
+                </button>
                 <form className="custom-button">
                   <label htmlFor="file-upload" className="file-upload-label">
                     Edit Profile Picture
@@ -318,11 +317,11 @@ export default function Profile() {
                     onChange={handleEditProfileImage}
                   />
                 </form>
-
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-}
+        )}
+      </div>
+      </div>
+    );
+  }
