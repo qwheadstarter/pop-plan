@@ -198,8 +198,8 @@ export default function Profile() {
           <button className="custom-button" onClick={handleRetakeQuiz}>
             Retake Preference Quiz
           </button>
-          <button className="custom-button">Rate Your Plans</button>
-          <button className="custom-button">Ask Poppy for a New Plan</button>
+          <a href="/plans"><button className="custom-button">View Your Plans</button></a>
+          <a href="/chat"><button className="custom-button">Ask Poppy for a New Plan</button></a>
           <button
             className="custom-button"
             onClick={() => setShowLocation(!showLocation)}
