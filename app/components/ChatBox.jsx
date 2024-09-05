@@ -1,5 +1,19 @@
-import { Box, TextField, Typography, Button, Card, CardContent, CircularProgress } from "@mui/material";
-import { collection, doc, getDocs, increment, updateDoc } from "firebase/firestore";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CircularProgress,
+  Container,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { collection, doc, getDocs, increment, setDoc, updateDoc } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
@@ -13,6 +27,10 @@ const ChatBox = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSatisfied, setIsSatisfied] = useState(false);
   const { user } = useUser();
+  const [itineraryName, setItineraryName] = useState('')
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const handleOpenDialog = () => setDialogOpen(true)
+  const handleCloseDialog = () => setDialogOpen(false)
 
   useEffect(() => {
     if (user) {
@@ -36,11 +54,24 @@ const ChatBox = () => {
   };
 
   const saveItinerary = async () => {
-    const name = "Saved Itineraries";
-    const userDocRef = doc(collection(db, "users"), user.id);
-    const colRef = collection(userDocRef, name);
+    if (!itineraryName.trim()) {
+      alert("Please enter a name for your itinerary.");
+      return;
+    }
 
-    await addDoc(colRef, `{itinerary: ${itinerary}}`);
+    try {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const colRef = collection(userDocRef, "Saved Itineraries");
+
+      await setDoc(doc(colRef, itineraryName), {itinerary: itinerary});
+
+      alert("Itinerary saved successfully")
+      handleCloseDialog()
+      setItineraryName("")
+    } catch (error) {
+      console.error("Error saving itinerary:", error)
+      alert("An error occurred while saving your itinerary. Please try again.")
+    }
   };
 
   const getItinerary = async () => {
@@ -131,6 +162,7 @@ const ChatBox = () => {
   };
 
   return (
+    <Container maxWidth="lg">
     <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: 4 }}>
       {/* Chat box section */}
       <Box sx={{ width: "30%", borderRight: "1px solid #ddd", paddingRight: 2 }}>
@@ -182,8 +214,37 @@ const ChatBox = () => {
         ) : (
           <Typography variant="body2" sx={{ color: "gray" }}>Itinerary will be displayed here once generated.</Typography>
         )}
+        {itinerary && (
+          <Button variant="contained" color="primary" onClick={handleOpenDialog}>
+            Save Itinerary
+          </Button>
+        )}
       </Box>
     </Box>
+    <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+      <DialogTitle>Save Itinerary</DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+        Please enter a name for your itinerary.
+        </DialogContentText>
+        <TextField
+        autoFocus
+        margin="dense"
+        label="Itinerary Name"
+        type="text"
+        fullWidth
+        value={itineraryName}
+        onChange={(e) => setItineraryName(e.target.value)}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleCloseDialog}>Cancel</Button>
+        <Button onClick={saveItinerary} color="primary">
+        Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+    </Container>
   );
 };
 
