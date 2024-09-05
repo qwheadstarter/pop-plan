@@ -7,8 +7,8 @@ import {
 } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "100%",
-  height: "100%",
+  width: "50%",
+  height: "100vh",
 };
 
 const defaultSanFrancisco = { lat: 37.7749, lng: -122.4194 };

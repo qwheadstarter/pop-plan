@@ -93,7 +93,7 @@
 
 .quiz-page {
   overflow-x: hidden;
-  background: linear-gradient(to bottom, #378E9E, #AE2012);
+  background: linear-gradient(to bottom, #378e9e, #ae2012);
   height: 100vh;
 }
 
@@ -329,7 +329,7 @@
 }
 
 .profile-hero {
-  background: linear-gradient(to bottom, #378E9E, #AE2012);
+  background: linear-gradient(to bottom, #378e9e, #ae2012);
   padding: 50px 0;
   text-align: center;
   height: 100vh;
@@ -487,7 +487,12 @@
 
 /* Quiz results container */
 .results-container {
-  background-color: rgba(255, 255, 255, 0.8); /* White with slight transparency */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* White with slight transparency */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
@@ -512,23 +517,21 @@
   color: #ff512f; /* Highlight category titles */
 }
 
-
 /* Plans Page CSS*/
-
 
 /* Plans Section Wrapper */
 .plans {
   /* Background Gradient */
-  background: linear-gradient(to bottom, #378E9E, #AE2012);
+  background: linear-gradient(to bottom, #378e9e, #ae2012);
   min-height: 100vh;
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   color: #fff;
   padding: 20px; /* Optional padding for inner content */
 }
 
 .plans h1 {
-  color: #D4523B; /* Jasper */
+  color: #d4523b; /* Jasper */
   font-size: 3rem;
   margin-bottom: 20px;
 }
@@ -540,7 +543,7 @@
 
 /* Section Splits */
 .plans .section {
-  background-color: #FFBB43; /* Xanthous */
+  background-color: #ffbb43; /* Xanthous */
   padding: 50px;
   margin: 50px 0;
   border-radius: 15px;
@@ -560,7 +563,7 @@
 
 /* Example of button styling */
 .plans button {
-  background-color: #F4E2D0; /* almond */
+  background-color: #f4e2d0; /* almond */
   border: none;
   color: #215d68;
   padding: 10px 20px;
@@ -571,7 +574,7 @@
 }
 
 .plans button:hover {
-  background-color:#ffba4389; /* Xanthous hover */
+  background-color: #ffba4389; /* Xanthous hover */
 }
 
 /* Responsive adjustments */
@@ -592,4 +595,12 @@
     width: 100px;
     height: 100px;
   }
+}
+
+/* CHAT */
+
+.chat-page {
+  height: 100%;
+  overflow: hidden;
+  background-color: #212529;
 }
