@@ -7,7 +7,7 @@ import {
 } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "50%",
+  width: "100%",
   height: "100vh",
 };
 
@@ -98,7 +98,7 @@ const MapComponent = ({ itinerary }) => {
           <Marker
             key={index}
             position={{ lat: marker.lat, lng: marker.lng }}
-            label={marker.title}
+            // label={marker.title}
             onClick={() => setSelectedPlace(marker)}
           />
         ))}
