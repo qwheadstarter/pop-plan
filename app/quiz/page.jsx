@@ -14,8 +14,8 @@ import { useUser } from "@clerk/nextjs"; // Import Clerk's useUser hook for user
 import { quiz } from "/data.js";
 import "@/app/globals.css";
 import { useRouter } from "next/navigation";
-//import Header from "@/app/components/header";
-//import Footer from "@/app/components/footer";
+import Navigation from "@/app/components/Navigation";
+
 
 const Page = () => {
   const { user } = useUser(); // Get the currently logged-in user
@@ -152,6 +152,7 @@ const Page = () => {
 
   return (
     <div className="quiz-page">
+      <Navigation />
       <div className="container">
         <h1>Quiz Page</h1>
         <div>

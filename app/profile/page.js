@@ -1,10 +1,7 @@
 "use client";
 
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/header";
 import "@/app/globals.css";
 import { db } from "../firebase";
-import Geolocation from "@/utils/geolocation";
 import { useUser } from "@clerk/nextjs";
 import {
   collection,
@@ -22,6 +19,7 @@ import {
 } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Navigation from "@/app/components/Navigation";
 
 export default function Profile() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -175,7 +173,7 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      <Header />
+      <Navigation />
       <div className="profile-hero">
         <div
           className="profile-image-wrapper"

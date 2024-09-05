@@ -14,7 +14,7 @@ import {
     Grid,
     Typography,
 } from '@mui/material'
-import Header from "@/app/components/header";
+import Navigation from "@/app/components/Navigation";
 
 export default function Plans() {
     const { isLoaded, isSignedIn, user } = useUser()
@@ -59,7 +59,7 @@ export default function Plans() {
 
     return (
         <Container maxWidth="false">
-          <Header />
+          <Navigation />
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {itineraries.map((itinerary, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
