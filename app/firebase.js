@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
+    apiKey: "AIzaSyApO2pJJWHMGJeKy_rvSny-KjWjomz90Qs",
+    authDomain: "pop-plan.firebaseapp.com",
+    projectId: "pop-plan",
+    storageBucket: "pop-plan.appspot.com",
+    messagingSenderId: "151439073977",
+    appId: "1:151439073977:web:35d456a0a345c3b5c5f168",
+    measurementId: "G-1F18KW2V7D"
 };
 
 const app = initializeApp(firebaseConfig);
