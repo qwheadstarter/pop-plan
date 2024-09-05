@@ -12,25 +12,31 @@ import {
   DialogActions,
   TextField,
   Typography,
-} from '@mui/material'
-import { collection, doc, getDocs, increment, setDoc, updateDoc } from "firebase/firestore";
+} from "@mui/material";
+import {
+  collection,
+  doc,
+  getDocs,
+  increment,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
 
-const ChatBox = () => {
+const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
   const [prompt, setPrompt] = useState("");
-  const [itinerary, setItinerary] = useState(null);
   const [conversationHistory, setConversationHistory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSatisfied, setIsSatisfied] = useState(false);
   const { user } = useUser();
-  const [itineraryName, setItineraryName] = useState('')
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const handleOpenDialog = () => setDialogOpen(true)
-  const handleCloseDialog = () => setDialogOpen(false)
+  const [itineraryName, setItineraryName] = useState("");
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleOpenDialog = () => setDialogOpen(true);
+  const handleCloseDialog = () => setDialogOpen(false);
 
   useEffect(() => {
     if (user) {
@@ -63,14 +69,14 @@ const ChatBox = () => {
       const userDocRef = doc(collection(db, "users"), user.id);
       const colRef = collection(userDocRef, "Saved Itineraries");
 
-      await setDoc(doc(colRef, itineraryName), {itinerary: itinerary});
+      await setDoc(doc(colRef, itineraryName), { itinerary: itinerary });
 
-      alert("Itinerary saved successfully")
-      handleCloseDialog()
-      setItineraryName("")
+      alert("Itinerary saved successfully");
+      handleCloseDialog();
+      setItineraryName("");
     } catch (error) {
-      console.error("Error saving itinerary:", error)
-      alert("An error occurred while saving your itinerary. Please try again.")
+      console.error("Error saving itinerary:", error);
+      alert("An error occurred while saving your itinerary. Please try again.");
     }
   };
 
@@ -87,7 +93,10 @@ const ChatBox = () => {
       return;
     }
     setIsLoading(true);
-    const updatedConversationHistory = [...conversationHistory, { role: "user", content: prompt }];
+    const updatedConversationHistory = [
+      ...conversationHistory,
+      { role: "user", content: prompt },
+    ];
     setConversationHistory(updatedConversationHistory);
 
     try {
@@ -100,15 +109,19 @@ const ChatBox = () => {
           userProfile,
         }),
       });
-      
+
       const data = await response.json();
+      console.log("data", data);
       const parsedData = JSON.parse(data.response);
       setItinerary(parsedData.itinerary);
       setResponse(parsedData.intro);
 
       setConversationHistory((prev) => [
         ...prev,
-        { role: "assistant", content: "Here's your itinerary! Are you satisfied?" },
+        {
+          role: "assistant",
+          content: "Here's your itinerary! Are you satisfied?",
+        },
       ]);
 
       setIsSatisfied(true);
@@ -130,7 +143,10 @@ const ChatBox = () => {
         <CardContent>
           <Typography variant="h6">{`${item.time} - ${item.name}`}</Typography>
           <Typography variant="body1">{item.description}</Typography>
-          <Typography variant="body2" color="textSecondary">{`Address: ${item.address}`}</Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+          >{`Address: ${item.address}`}</Typography>
         </CardContent>
       </Card>
     ));
@@ -146,7 +162,10 @@ const ChatBox = () => {
     } else {
       setConversationHistory((prev) => [
         ...prev,
-        { role: "assistant", content: "Let's adjust the itinerary. What would you like to change?" },
+        {
+          role: "assistant",
+          content: "Let's adjust the itinerary. What would you like to change?",
+        },
       ]);
       setIsSatisfied(false);
     }
@@ -154,87 +173,128 @@ const ChatBox = () => {
 
   return (
     <Container maxWidth="lg">
-    <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", padding: 4 }}>
-      {/* Chat box section */}
-      <Box sx={{ width: "30%", borderRight: "1px solid #ddd", paddingRight: 2 }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>Chat with Poppy</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: 4,
+        }}
+      >
+        {/* Chat box section */}
+        <Box
+          sx={{ width: "30%", borderRight: "1px solid #ddd", paddingRight: 2 }}
+        >
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            Chat with Poppy
+          </Typography>
 
-        <Box sx={{ height: "300px", overflowY: "scroll", mb: 2 }}>
-          {conversationHistory.map((message, index) => (
-            <Box key={index} sx={{ display: 'flex', justifyContent: message.role === "user" ? "flex-end" : "flex-start" }}>
-              <Card sx={{ backgroundColor: message.role === "user" ? "#1976D2" : "#E0E0E0", color: message.role === "user" ? "#fff" : "#000", mb: 1 }}>
-                <CardContent>
-                  <Typography variant="body2">{message.content}</Typography>
-                </CardContent>
-              </Card>
+          <Box sx={{ height: "300px", overflowY: "scroll", mb: 2 }}>
+            {conversationHistory.map((message, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent:
+                    message.role === "user" ? "flex-end" : "flex-start",
+                }}
+              >
+                <Card
+                  sx={{
+                    backgroundColor:
+                      message.role === "user" ? "#1976D2" : "#E0E0E0",
+                    color: message.role === "user" ? "#fff" : "#000",
+                    mb: 1,
+                  }}
+                >
+                  <CardContent>
+                    <Typography variant="body2">{message.content}</Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            ))}
+            {isLoading && <CircularProgress size={24} />}
+          </Box>
+
+          <TextField
+            variant="outlined"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            fullWidth
+            placeholder="Type your message..."
+            onKeyPress={(e) => {
+              if (e.key === "Enter") handleSubmit();
+            }}
+            sx={{ mb: 2 }}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleSubmit}
+            fullWidth
+            disabled={isLoading}
+          >
+            {isLoading ? "Generating..." : "Send"}
+          </Button>
+
+          {/* Move confirmation buttons here */}
+          {isSatisfied && (
+            <Box mt={2}>
+              <Typography variant="body1">
+                Are you satisfied with this itinerary?
+              </Typography>
+              <Button onClick={() => handleConfirmation(true)} sx={{ mr: 2 }}>
+                Yes
+              </Button>
+              <Button onClick={() => handleConfirmation(false)}>No</Button>
             </Box>
-          ))}
-          {isLoading && <CircularProgress size={24} />}
+          )}
         </Box>
 
-        <TextField
-          variant="outlined"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          fullWidth
-          placeholder="Type your message..."
-          onKeyPress={(e) => {
-            if (e.key === "Enter") handleSubmit();
-          }}
-          sx={{ mb: 2 }}
-        />
-        <Button variant="contained" color="primary" onClick={handleSubmit} fullWidth disabled={isLoading}>
-          {isLoading ? "Generating..." : "Send"}
-        </Button>
-
-        {/* Move confirmation buttons here */}
-        {isSatisfied && (
-          <Box mt={2}>
-            <Typography variant="body1">Are you satisfied with this itinerary?</Typography>
-            <Button onClick={() => handleConfirmation(true)} sx={{ mr: 2 }}>Yes</Button>
-            <Button onClick={() => handleConfirmation(false)}>No</Button>
-          </Box>
-        )}
+        {/* Itinerary section */}
+        <Box sx={{ width: "50%", paddingLeft: 2 }}>
+          <Typography variant="h6">Itinerary</Typography>
+          {itinerary ? (
+            formatItinerary()
+          ) : (
+            <Typography variant="body2" sx={{ color: "gray" }}>
+              Itinerary will be displayed here once generated.
+            </Typography>
+          )}
+          {itinerary && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleOpenDialog}
+            >
+              Save Itinerary
+            </Button>
+          )}
+        </Box>
       </Box>
-
-      {/* Itinerary section */}
-      <Box sx={{ width: "50%", paddingLeft: 2 }}>
-        <Typography variant="h6">Itinerary</Typography>
-        {itinerary ? (
-          formatItinerary()
-        ) : (
-          <Typography variant="body2" sx={{ color: "gray" }}>Itinerary will be displayed here once generated.</Typography>
-        )}
-        {itinerary && (
-          <Button variant="contained" color="primary" onClick={handleOpenDialog}>
-            Save Itinerary
+      <Dialog open={dialogOpen} onClose={handleCloseDialog}>
+        <DialogTitle>Save Itinerary</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please enter a name for your itinerary.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Itinerary Name"
+            type="text"
+            fullWidth
+            value={itineraryName}
+            onChange={(e) => setItineraryName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={saveItinerary} color="primary">
+            Save
           </Button>
-        )}
-      </Box>
-    </Box>
-    <Dialog open={dialogOpen} onClose={handleCloseDialog}>
-      <DialogTitle>Save Itinerary</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-        Please enter a name for your itinerary.
-        </DialogContentText>
-        <TextField
-        autoFocus
-        margin="dense"
-        label="Itinerary Name"
-        type="text"
-        fullWidth
-        value={itineraryName}
-        onChange={(e) => setItineraryName(e.target.value)}
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleCloseDialog}>Cancel</Button>
-        <Button onClick={saveItinerary} color="primary">
-        Save
-        </Button>
-      </DialogActions>
-    </Dialog>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
