@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import getStripe from "@/utils/get-stripe";
 import {
   Box,
   Typography,
@@ -7,8 +10,39 @@ import {
   Button,
   Grid,
 } from "@mui/material";
+import { useUser } from "@clerk/nextjs";
 
 const Pricing = () => {
+  const { user } = useUser();
+
+  const handleCheckout = async () => {
+    const checkoutSession = await fetch("/api/checkout_session", {
+      method: "POST",
+      headers: {
+        origin: "http://localhost:3000",
+      },
+    });
+
+    const checkoutSessionJson = await checkoutSession.json();
+    console.log(checkoutSessionJson);
+
+    if (checkoutSession.statusCode === 500) {
+      console.error(checkoutSessionJson.message);
+      return;
+    }
+
+    console.log(checkoutSessionJson.id);
+
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    });
+
+    if (error) {
+      console.warn(error.message);
+    }
+  };
+
   return (
     <div className="pricing-container">
       <Box sx={{ textAlign: "center" }}>
@@ -66,6 +100,7 @@ const Pricing = () => {
                     </Typography>
                   </Box>
                   <Button
+                    href="/sign-up"
                     variant="contained"
                     sx={{
                       backgroundColor: "#1976d2",
@@ -112,7 +147,7 @@ const Pricing = () => {
                     }}
                   >
                     <Typography variant="h6" gutterBottom>
-                      Unlock 10 personalized day plans for just $10.
+                      Unlock unlimited personalized day plans for just $10 / month.
                     </Typography>
                     <Typography variant="h6">
                       Dive deeper into exclusive experiences and local
@@ -128,6 +163,7 @@ const Pricing = () => {
                       backgroundColor: "#1976d2",
                       color: "#ffffff",
                     }}
+                    onClick={handleCheckout}
                   >
                     Upgrade to Explorer
                   </Button>
