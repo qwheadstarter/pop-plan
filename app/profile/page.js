@@ -129,9 +129,9 @@ export default function Profile() {
         const oldImagePath = docSnap.data().profileImagePath;
         if (oldImagePath) {
           deleteObject(ref(storage, oldImagePath)).then(() => {
-            console.log(`Old profile image ${oldImagePath} deleted successfully`);
+            console.log(`Old profile image deleted successfully`);
           }).catch((error) => {
-            console.log(`Error deleting old profile image at ${oldImagePath}: ${error}`);
+            console.error(`Error deleting old profile image: ${error}`);
           });
         }
 

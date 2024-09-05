@@ -35,6 +35,23 @@ const ChatBox = () => {
     }
   };
 
+  const saveItinerary = async () => {
+    const name = "Saved Itineraries";
+    const userDocRef = doc(collection(db, "users"), user.id);
+    const colRef = collection(userDocRef, name);
+
+    await addDoc(colRef, `{itinerary: ${itinerary}}`);
+  };
+
+  const getItinerary = async () => {
+    if (user) {
+      const colRef = collection(doc(collection(db, "users"), user.id), "Saved Itineraries");
+      const docSnap = await getDocs(colRef);
+
+      setItinerary(docSnap.data().itinerary)
+    }
+  };
+
   const incrementUserPlansGenerated = async () => {
     if (user) {
       const userDocRef = doc(collection(db, "users"), user.id);
