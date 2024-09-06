@@ -153,6 +153,19 @@ const Navigation = () => {
         ) : (
           <>
             <Link
+              href="/plans"
+              passHref
+              style={{
+                color: "#fff",
+                textDecoration: "none",
+                "&:hover": { color: "#46515A" },
+              }}
+            >
+              <ListItem button key="Saved Itineraries">
+                <ListItemText primary="Saved Itineraries" />
+              </ListItem>
+            </Link>
+            <Link
               href="/profile"
               passHref
               style={{
