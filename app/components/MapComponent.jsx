@@ -92,7 +92,6 @@ const MapComponent = ({ itinerary }) => {
         mapContainerStyle={containerStyle}
         center={userLocation || defaultSanFrancisco}
         zoom={12}
-        loading={async}
         onLoad={(map) => (mapRef.current = map)}
       >
         {markers.map((marker, index) => (
