@@ -28,6 +28,7 @@ import {
   updateDoc,
   increment,
 } from "firebase/firestore";
+import getStripe from "@/utils/get-stripe";
 import { useRouter } from "next/navigation";
 
 const ChatBox = ({ itinerary, setItinerary }) => {
@@ -46,9 +47,12 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   const [isSatisfied, setIsSatisfied] = useState(false);
   const [itineraryName, setItineraryName] = useState("");
   const [accordionExpanded, setAccordionExpanded] = useState(true);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const handleOpenDialog = () => setDialogOpen(true);
-  const handleCloseDialog = () => setDialogOpen(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
+  const handleOpenSaveDialog = () => setSaveDialogOpen(true);
+  const handleCloseSaveDialog = () => setSaveDialogOpen(false);
+  const [upgradeDialogOpen, setUpgradeDialogOpen] = useState(false);
+  const handleOpenUpgradeDialog = () => setUpgradeDialogOpen(true);
+  const handleCloseUpgradeDialog = () => setUpgradeDialogOpen(false);
 
   useEffect(() => {
     if (user) {
@@ -91,7 +95,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       await setDoc(doc(colRef, itineraryName), { itinerary: itinerary });
 
       alert("Itinerary saved successfully");
-      handleCloseDialog();
+      handleCloseSaveDialog();
       setItineraryName("");
     } catch (error) {
       console.error("Error saving itinerary:", error);
@@ -118,7 +122,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   };
 
   const incrementUserPlansGenerated = async () => {
-    setPlansGenerated(plansGenerated + 1)
+    setPlansGenerated(plansGenerated + 1);
     if (user) {
       const userDocRef = doc(collection(db, "users"), user.id);
       await updateDoc(userDocRef, { plansGenerated: increment(1) });
@@ -132,7 +136,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
     }
 
     if (plansGenerated >= 5 && !isPremiumUser) {
-      alert("You have reached the limit for free itineraries. Upgrade to the Explorer plan for unlimited plans for $10 / month");
+      handleOpenUpgradeDialog()
       return;
     }
     if (!prompt.trim()) {
@@ -231,9 +235,37 @@ const ChatBox = ({ itinerary, setItinerary }) => {
     setAccordionExpanded(!accordionExpanded);
   };
 
+  const handleCheckout = async () => {
+    const checkoutSession = await fetch("/api/checkout_session", {
+      method: "POST",
+      headers: {
+        origin: "http://localhost:3000",
+      },
+    });
+
+    const checkoutSessionJson = await checkoutSession.json();
+    console.log(checkoutSessionJson);
+
+    if (checkoutSession.statusCode === 500) {
+      console.error(checkoutSessionJson.message);
+      return;
+    }
+
+    console.log(checkoutSessionJson.id);
+
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    });
+
+    if (error) {
+      console.warn(error.message);
+    }
+  };
+
   // Redirect to sign-in page if user is not logged in
   if (isLoaded && !isSignedIn) {
-    router.push("/sign-in")
+    router.push("/sign-in");
   }
 
   return (
@@ -322,21 +354,21 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleOpenDialog}
+                      onClick={handleOpenSaveDialog}
                     >
                       Save Itinerary
                     </Button>
 
                     {/* Save Itinerary Dialog */}
                     <Dialog
-                      open={dialogOpen}
+                      open={saveDialogOpen}
                       sx={{
                         ".MuiDialog-paper": {
                           bgcolor: "#212529",
                           color: "#B4B4B4",
                         },
                       }}
-                      onClose={handleCloseDialog}
+                      onClose={handleCloseSaveDialog}
                     >
                       <DialogTitle>Save Itinerary</DialogTitle>
                       <DialogContent>
@@ -361,7 +393,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                       </DialogContent>
                       <DialogActions>
                         <Button
-                          onClick={handleCloseDialog}
+                          onClick={handleCloseSaveDialog}
                           sx={{
                             bgcolor: "#1976D2",
                             color: "#fff",
@@ -466,6 +498,53 @@ const ChatBox = ({ itinerary, setItinerary }) => {
             >
               {isLoading ? "Generating..." : "Send"}
             </Button>
+            {/* Upgrade to Premium Dialog */}
+            <Dialog
+              open={upgradeDialogOpen}
+              sx={{
+                ".MuiDialog-paper": {
+                  bgcolor: "#212529",
+                  color: "#B4B4B4",
+                },
+              }}
+              onClose={handleCloseUpgradeDialog}
+            >
+              <DialogTitle>Upgrade to Premium</DialogTitle>
+              <DialogContent>
+                <DialogContentText sx={{ color: "#B4B4B4" }}>
+                  You have reached the limit for free itineraries.
+                  Upgrade to the Explorer plan for unlimited plans for $10 / month!
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={handleCheckout}
+                  sx={{
+                    bgcolor: "#1976D2",
+                    color: "#fff",
+                    "&:hover": {
+                      bgcolor: "#0083E0",
+                      color: "#fff",
+                    },
+                  }}
+                >
+                  Uprade Now
+                </Button>
+                <Button
+                  onClick={handleCloseUpgradeDialog}
+                  sx={{
+                    bgcolor: "#1976D2",
+                    color: "#fff",
+                    "&:hover": {
+                      bgcolor: "#0083E0",
+                      color: "#fff",
+                    },
+                  }}
+                >
+                  Exit
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Box>
         </Box>
       </Box>
