@@ -187,6 +187,8 @@ export default function Profile() {
         </div>
         <h1 className="welcome-text">Welcome, {user.fullName || "User"}!</h1>
         <div className="buttons-wrapper">
+          <a href="/chat"><button className="custom-button">Ask Poppy for a New Plan</button></a>
+          <a href="/plans"><button className="custom-button">View Saved Plans</button></a>
           <button
             className="custom-button"
             onClick={() => setShowQuizResults(!showQuizResults)}
@@ -196,8 +198,6 @@ export default function Profile() {
           <button className="custom-button" onClick={handleRetakeQuiz}>
             Retake Preference Quiz
           </button>
-          <a href="/plans"><button className="custom-button">View Your Plans</button></a>
-          <a href="/chat"><button className="custom-button">Ask Poppy for a New Plan</button></a>
           <button
             className="custom-button"
             onClick={() => setShowLocation(!showLocation)}
