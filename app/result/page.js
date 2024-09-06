@@ -14,6 +14,7 @@ import { db } from "../firebase";
 import { doc, collection, updateDoc } from "firebase/firestore";
 import Navigation from "@/app/components/Navigation";
 import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 
 const ResultPage = () => {
   const { isLoaded, isSignedIn, user } = useUser();
