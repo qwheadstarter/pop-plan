@@ -19,7 +19,7 @@ import { ExpandMoreOutlined } from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
-import { doc, getDocs, setDoc, collection } from "firebase/firestore";
+import { doc, getDocs, setDoc, collection, updateDoc, increment } from "firebase/firestore";
 
 const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
@@ -59,6 +59,11 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   const saveItinerary = async () => {
     if (!itineraryName.trim()) {
       alert("Please enter a name for your itinerary.");
+      return;
+    }
+
+    if (!user) {
+      alert("You must be logged in to save itineraries.");
       return;
     }
 
