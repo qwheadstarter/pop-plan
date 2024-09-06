@@ -37,7 +37,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
   const [prompt, setPrompt] = useState("");
   const [conversationHistory, setConversationHistory] = useState([
-    { role: "assistant", content: "Welcome! I’m Poppy, your personal assistant. How can I help you plan your perfect day today?" }
+    { role: "assistant", content: "Welcome I'm Poppy, your personal planning assistant. What details should I know before I plan your day?" }
   ]); 
   const [userProfile, setUserProfile] = useState(null);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
