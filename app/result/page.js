@@ -9,10 +9,14 @@ import {
   Box,
   Container,
 } from "@mui/material";
-import Header from "@/app/components/header";
+import { useUser } from "@clerk/nextjs";
+import { db } from "../firebase";
+import { doc, collection, updateDoc } from "firebase/firestore";
+import Navigation from "@/app/components/Navigation";
 import Footer from "@/app/components/Footer";
 
 const ResultPage = () => {
+  const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
   const session_id = searchParams.get("session_id");
@@ -43,6 +47,13 @@ const ResultPage = () => {
     };
     fetchCheckoutSession();
   }, [session_id]);
+
+  const setPremiumUser = async () => {
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      await updateDoc(userDocRef, { isPremiumUser: true });
+    }
+  };
 
   if (loading) {
     return (
@@ -88,8 +99,8 @@ const ResultPage = () => {
         height: "100vh",
       }}
     >
-      <Header />
-      {session.payment_status === "paid" ? (
+      <Navigation />
+      {session.payment_status === "paid" ? setPremiumUser() && (
         <>
           <Typography variant="h4">Thank you for purchasing</Typography>
           <Box sx={{ mt: 22 }}>

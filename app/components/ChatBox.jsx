@@ -21,21 +21,27 @@ import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
 import {
   doc,
+  getDoc,
   getDocs,
   setDoc,
   collection,
   updateDoc,
   increment,
 } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 const ChatBox = ({ itinerary, setItinerary }) => {
+  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
+
   const [response, setResponse] = useState("");
   const [prompt, setPrompt] = useState("");
   const [conversationHistory, setConversationHistory] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
+  const [isPremiumUser, setIsPremiumUser] = useState(false);
+  const [plansGenerated, setPlansGenerated] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isSatisfied, setIsSatisfied] = useState(false);
-  const { user } = useUser();
   const [itineraryName, setItineraryName] = useState("");
   const [accordionExpanded, setAccordionExpanded] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -45,6 +51,8 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   useEffect(() => {
     if (user) {
       getQuizResults();
+      getIsPremiumUser();
+      getUserPlansGenerated();
     }
   }, [user]);
 
@@ -69,7 +77,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       return;
     }
 
-    if (!user) {
+    if (!user || !isSignedIn) {
       alert("You must be logged in to save itineraries.");
       return;
     }
@@ -89,7 +97,26 @@ const ChatBox = ({ itinerary, setItinerary }) => {
     }
   };
 
+  const getIsPremiumUser = async () => {
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(userDocRef);
+
+      setIsPremiumUser(docSnap.data().isPremiumUser);
+    }
+  };
+
+  const getUserPlansGenerated = async () => {
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(userDocRef);
+
+      setPlansGenerated(docSnap.data().plansGenerated);
+    }
+  };
+
   const incrementUserPlansGenerated = async () => {
+    setPlansGenerated(plansGenerated + 1)
     if (user) {
       const userDocRef = doc(collection(db, "users"), user.id);
       await updateDoc(userDocRef, { plansGenerated: increment(1) });
@@ -97,6 +124,15 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   };
 
   const handleSubmit = async () => {
+    if (!user || !isSignedIn) {
+      alert("You must be logged in to Chat with Poppy.");
+      return;
+    }
+
+    if (plansGenerated >= 5 && !isPremiumUser) {
+      alert("You have reached the limit for free itineraries. Upgrade to the Explorer plan for unlimited plans for $10 / month");
+      return;
+    }
     if (!prompt.trim()) {
       alert("Please enter a prompt to generate recommendations");
       return;
@@ -192,6 +228,11 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   const handleAccordionChange = () => {
     setAccordionExpanded(!accordionExpanded);
   };
+
+  // Redirect to sign-in page if user is not logged in
+  if (isLoaded && !isSignedIn) {
+    router.push("/sign-in")
+  }
 
   return (
     <Box
