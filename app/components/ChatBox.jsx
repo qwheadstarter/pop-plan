@@ -24,7 +24,9 @@ import { doc, getDocs, setDoc, collection } from "firebase/firestore";
 const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
   const [prompt, setPrompt] = useState("");
-  const [conversationHistory, setConversationHistory] = useState([]);
+  const [conversationHistory, setConversationHistory] = useState([
+    { role: "assistant", content: "Welcome! I’m Poppy, your personal assistant. How can I help you plan your perfect day today?" }
+  ]); 
   const [userProfile, setUserProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isSatisfied, setIsSatisfied] = useState(false);
