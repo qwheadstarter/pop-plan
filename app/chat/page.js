@@ -14,30 +14,42 @@ const Chat = () => {
   return (
     <>
       <div className="chat-page">
-        {/* <Navigation /> */}
+        {/* Navigation is fixed at the top */}
+        <Navigation />
         <Box
           sx={{
             display: "flex",
+            flexDirection: "column",
             height: "100vh",
+            overflowY: "scroll",
           }}
         >
+          {/* Adjust the height to account for the Navigation */}
           <Box
             sx={{
+              display: "flex",
               flexGrow: 1,
-              width: "40%",
-              borderRight: "1px solid #ddd",
+              marginTop: "64px", // Assuming Navigation height is 64px, adjust if different
             }}
           >
-            <ChatBox setItinerary={setItinerary} itinerary={itinerary} />
+            <Box
+              sx={{
+                flexGrow: 1,
+                width: "40%",
+                borderRight: "1px solid #ddd",
+              }}
+            >
+              <ChatBox setItinerary={setItinerary} itinerary={itinerary} />
+            </Box>
+            <Box sx={{ flexGrow: 1, width: "40%" }}>
+              <MapComponent itinerary={itinerary} />
+            </Box>
+            <Box sx={{ width: 300, padding: 0 }}>
+              <Places itinerary={itinerary} />
+            </Box>
           </Box>
-          <Box sx={{ flexGrow: 1, width: "40%" }}>
-            <MapComponent itinerary={itinerary} />
-          </Box>
-          <Box sx={{ width: 300, padding: 0 }}>
-            <Places itinerary={itinerary} />
-          </Box>
+          <Footer />
         </Box>
-        <Footer />
       </div>
     </>
   );
