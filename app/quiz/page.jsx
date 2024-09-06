@@ -152,9 +152,8 @@ const Page = () => {
 
   return (
     <div className="quiz-page">
-      <Navigation />
       <div className="container">
-        <h1>Quiz Page</h1>
+        <h3>Answer a quick quiz to personalize your preferences and create a tailored itinerary just for you!</h3>
         <div>
           <h2>
             Question: {activeQuestion + 1}
@@ -288,7 +287,7 @@ const Page = () => {
             </div>
           ) : (
             <div className="quiz-container">
-              <h3>Your Answers</h3>
+              <h3>Review Your Answers</h3>
               {answersGiven.map((answers, idx) => (
                 <div key={idx}>
                   <p>Question {idx + 1}:</p>
