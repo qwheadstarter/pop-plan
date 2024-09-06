@@ -19,7 +19,14 @@ import { ExpandMoreOutlined } from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
-import { doc, getDocs, setDoc, collection, updateDoc, increment } from "firebase/firestore";
+import {
+  doc,
+  getDocs,
+  setDoc,
+  collection,
+  updateDoc,
+  increment,
+} from "firebase/firestore";
 
 const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
@@ -113,7 +120,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       });
 
       const data = await response.json();
-      console.log("data", data);
+      // console.log("data", data);
       const parsedData = JSON.parse(data.response);
       setItinerary(parsedData.itinerary);
       setResponse(parsedData.intro);
