@@ -29,7 +29,7 @@ const Footer = () => {
       >
         <Box sx={{ maxWidth: "sm" }}>
           <Typography sx={{ color: "#ffffff", fontWeight: "bold" }}>
-            About Pop Plan
+            About Pop-Plan
           </Typography>
           <Typography sx={{ color: "#ffffff", fontSize: "16px" }}>
             Discover your next adventure with Poppy, your personalized itinerary
