@@ -103,7 +103,6 @@ const ResultPage = () => {
 
   if (session.payment_status === "paid") {
     setPremiumUser();
-    router.push("/chat");
   }
 
   return (
