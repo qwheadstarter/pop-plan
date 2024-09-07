@@ -136,7 +136,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
     }
 
     if (plansGenerated >= 5 && !isPremiumUser) {
-      handleOpenUpgradeDialog()
+      handleOpenUpgradeDialog();
       return;
     }
     if (!prompt.trim()) {
@@ -498,7 +498,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
             >
               {isLoading ? "Generating..." : "Send"}
             </Button>
-            {/* Upgrade to Premium Dialog */}
+            {/* Purchase Additional Itineraries Dialog */}
             <Dialog
               open={upgradeDialogOpen}
               sx={{
@@ -509,11 +509,11 @@ const ChatBox = ({ itinerary, setItinerary }) => {
               }}
               onClose={handleCloseUpgradeDialog}
             >
-              <DialogTitle>Upgrade to Premium</DialogTitle>
+              <DialogTitle>Purchase Additional Itineraries</DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{ color: "#B4B4B4" }}>
                   You have reached the limit for free itineraries.
-                  Upgrade to the Explorer plan for unlimited plans for $10 / month!
+                  Unlock 10 additional personalized itineraries for just $5!
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -528,7 +528,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                     },
                   }}
                 >
-                  Uprade Now
+                  Unlock Now
                 </Button>
                 <Button
                   onClick={handleCloseUpgradeDialog}

@@ -11,11 +11,19 @@ import {
   Grid,
 } from "@mui/material";
 import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const Pricing = () => {
-  const { user } = useUser();
+  const { isLoaded, isSignedIn, user } = useUser();
+  const router = useRouter();
 
   const handleCheckout = async () => {
+    // Redirect to sign-in page if user is not logged in
+    if (isLoaded && !isSignedIn) {
+      router.push("/sign-in");
+      return;
+    }
+
     const checkoutSession = await fetch("/api/checkout_session", {
       method: "POST",
       headers: {
@@ -147,7 +155,7 @@ const Pricing = () => {
                     }}
                   >
                     <Typography variant="h6" gutterBottom>
-                      Unlock unlimited personalized day plans for just $10 / month.
+                      Unlock 10 additional personalized day plans for just $5.
                     </Typography>
                     <Typography variant="h6">
                       Dive deeper into exclusive experiences and local
