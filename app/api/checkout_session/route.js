@@ -22,20 +22,16 @@ export async function GET(req)
 
 export async function POST(req) {
     const params = {
-      mode: 'subscription',
+      mode: 'payment',
       payment_method_types: ['card'],
       line_items: [
         {
           price_data: {
               currency: 'usd',
               product_data:{
-                  name: 'Explorer Plan'
+                  name: '10 Additional Itineraries'
               },
-              unit_amount: formatAmountForStripe(10), 
-              recurring: {
-                  interval: 'month',
-                  interval_count: 1,
-              }
+              unit_amount: formatAmountForStripe(5),
           },
           quantity: 1
         },
