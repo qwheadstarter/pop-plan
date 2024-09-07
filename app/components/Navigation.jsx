@@ -197,18 +197,18 @@ const Navigation = () => {
             sx={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
             }}
           >
             <img
               src="/assets/icon.png"
               alt="Pop Plan Logo"
-              style={{ height: "50px", width: "50px" }}
+              style={{ height: "70px", width: "70px" }}
             />
             <Typography
               sx={{
                 fontSize: "45px",
                 color: "#fff",
-                ml: 2,
               }}
             >
               Pop-Plan

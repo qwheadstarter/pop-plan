@@ -20,6 +20,7 @@ import {
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Navigation from "@/app/components/Navigation";
+import Footer from "../components/Footer";
 
 export default function Profile() {
   const { isLoaded, isSignedIn, user } = useUser();
@@ -126,11 +127,13 @@ export default function Profile() {
         // delete old profile image from storage
         const oldImagePath = docSnap.data().profileImagePath;
         if (oldImagePath) {
-          deleteObject(ref(storage, oldImagePath)).then(() => {
-            console.log(`Old profile image deleted successfully`);
-          }).catch((error) => {
-            console.error(`Error deleting old profile image: ${error}`);
-          });
+          deleteObject(ref(storage, oldImagePath))
+            .then(() => {
+              console.log(`Old profile image deleted successfully`);
+            })
+            .catch((error) => {
+              console.error(`Error deleting old profile image: ${error}`);
+            });
         }
 
         batch.set(userDocRef, { profileImageUrl: imageUrl }, { merge: true });
@@ -187,8 +190,12 @@ export default function Profile() {
         </div>
         <h1 className="welcome-text">Welcome, {user.fullName || "User"}!</h1>
         <div className="buttons-wrapper">
-          <a href="/chat"><button className="custom-button">Ask Poppy for a New Plan</button></a>
-          <a href="/plans"><button className="custom-button">View Saved Plans</button></a>
+          <a href="/chat">
+            <button className="custom-button">Ask Poppy for a New Plan</button>
+          </a>
+          <a href="/plans">
+            <button className="custom-button">View Saved Plans</button>
+          </a>
           <button
             className="custom-button"
             onClick={() => setShowQuizResults(!showQuizResults)}
@@ -204,7 +211,7 @@ export default function Profile() {
           >
             {showLocation ? "Hide Location" : "Update Location"}
           </button>
-  
+
           {/* Render the quiz results here, under the buttons */}
           {showQuizResults && (
             <div className="results-container">
@@ -212,14 +219,14 @@ export default function Profile() {
                 <p key={idx} className="result-text">
                   <strong>{result.category}</strong>:{" "}
                   {Array.isArray(result.answer)
-                    ? result.answer.join(", ")  // This will render the array as a comma-separated list
+                    ? result.answer.join(", ") // This will render the array as a comma-separated list
                     : result.answer}
                 </p>
               ))}
             </div>
           )}
         </div>
-  
+
         {/* Conditionally render the confirmation view for retaking quiz */}
         {confirmRetake && (
           <div className="overlay">
@@ -242,7 +249,7 @@ export default function Profile() {
             </div>
           </div>
         )}
-  
+
         {/* Regular Profile Content */}
         {!confirmRetake && !showProfileImage && (
           <div className="content">
@@ -287,7 +294,7 @@ export default function Profile() {
             )}
           </div>
         )}
-  
+
         {/* Conditionally render the expanded profile image view */}
         {showProfileImage && (
           <div className="overlay">
@@ -313,7 +320,7 @@ export default function Profile() {
                     id="file-upload"
                     type="file"
                     accept="image/*"
-                    style={{ display: 'none' }}
+                    style={{ display: "none" }}
                     onChange={handleEditProfileImage}
                   />
                 </form>
@@ -322,6 +329,7 @@ export default function Profile() {
           </div>
         )}
       </div>
-      </div>
-    );
-  }
+      <Footer />
+    </div>
+  );
+}
