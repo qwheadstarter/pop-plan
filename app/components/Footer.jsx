@@ -35,10 +35,10 @@ const Footer = () => {
             Discover your next adventure with Poppy, your personalized itinerary
             planner. Get more out of your downtime with an adventure just for
             you. Pop-Plan is perfect for exploring near home on your day off or
-            while you're visiting your next travel destination. Poppy instantly
-            curates experiences just for you, leaving you with more free time to
-            enjoy your day instead of planning it. Let Poppy make your next
-            outing unforgettable
+            while you&apos;re visiting your next travel destination. Poppy
+            instantly curates experiences just for you, leaving you with more
+            free time to enjoy your day instead of planning it. Let Poppy make
+            your next outing unforgettable
           </Typography>
         </Box>
 
