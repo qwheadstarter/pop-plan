@@ -38,8 +38,12 @@ const ChatBox = ({ itinerary, setItinerary }) => {
   const [response, setResponse] = useState("");
   const [prompt, setPrompt] = useState("");
   const [conversationHistory, setConversationHistory] = useState([
-    { role: "assistant", content: "Welcome I'm Poppy, your personal planning assistant. What details should I know before I plan your day?" }
-  ]); 
+    {
+      role: "assistant",
+      content:
+        "Welcome I'm Poppy, your personal planning assistant. What details should I know before I plan your day?",
+    },
+  ]);
   const [userProfile, setUserProfile] = useState(null);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [plansGenerated, setPlansGenerated] = useState(0);
@@ -136,7 +140,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
     }
 
     if (plansGenerated >= 5 && !isPremiumUser) {
-      handleOpenUpgradeDialog()
+      handleOpenUpgradeDialog();
       return;
     }
     if (!prompt.trim()) {
@@ -162,7 +166,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       });
 
       const data = await response.json();
-      // console.log("data", data);
+      console.log("data", data);
       const parsedData = JSON.parse(data.response);
       setItinerary(parsedData.itinerary);
       setResponse(parsedData.intro);
@@ -512,8 +516,8 @@ const ChatBox = ({ itinerary, setItinerary }) => {
               <DialogTitle>Upgrade to Premium</DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{ color: "#B4B4B4" }}>
-                  You have reached the limit for free itineraries.
-                  Upgrade to the Explorer plan for unlimited plans for $10 / month!
+                  You have reached the limit for free itineraries. Upgrade to
+                  the Explorer plan for unlimited plans for $10 / month!
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
