@@ -26,7 +26,7 @@ const Hero = () => {
     "/assets/3.mp4",
     "/assets/4.mp4",
     "/assets/5.mp4",
-    //"/assets/6.mp4",
+    "/assets/6.mp4",
     "/assets/7.mp4",
     "/assets/8.mp4",
     "/assets/9.mp4",
