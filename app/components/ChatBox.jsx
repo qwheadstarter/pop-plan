@@ -166,7 +166,6 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       });
 
       const data = await response.json();
-      console.log("data", data);
       const parsedData = JSON.parse(data.response);
       setItinerary(parsedData.itinerary);
       setResponse(parsedData.intro);
@@ -502,7 +501,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
             >
               {isLoading ? "Generating..." : "Send"}
             </Button>
-            {/* Upgrade to Premium Dialog */}
+            {/* Purchase Additional Itineraries Dialog */}
             <Dialog
               open={upgradeDialogOpen}
               sx={{
@@ -513,11 +512,11 @@ const ChatBox = ({ itinerary, setItinerary }) => {
               }}
               onClose={handleCloseUpgradeDialog}
             >
-              <DialogTitle>Upgrade to Premium</DialogTitle>
+              <DialogTitle>Purchase Additional Itineraries</DialogTitle>
               <DialogContent>
                 <DialogContentText sx={{ color: "#B4B4B4" }}>
-                  You have reached the limit for free itineraries. Upgrade to
-                  the Explorer plan for unlimited plans for $10 / month!
+                  You have reached the limit for free itineraries. Unlock 10
+                  additional personalized itineraries for just $5!
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -532,7 +531,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                     },
                   }}
                 >
-                  Uprade Now
+                  Unlock Now
                 </Button>
                 <Button
                   onClick={handleCloseUpgradeDialog}
