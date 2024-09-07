@@ -33,9 +33,12 @@ const Footer = () => {
           </Typography>
           <Typography sx={{ color: "#ffffff", fontSize: "16px" }}>
             Discover your next adventure with Poppy, your personalized itinerary
-            planner. Whether you’re exploring new cities or revisiting your
-            favorite spots, Poppy curates experiences just for you. Let’s make
-            your next outing unforgettable.
+            planner. Get more out of your downtime with an adventure just for
+            you. Pop-Plan is perfect for exploring near home on your day off or
+            while you're visiting your next travel destination. Poppy instantly
+            curates experiences just for you, leaving you with more free time to
+            enjoy your day instead of planning it. Let Poppy make your next
+            outing unforgettable
           </Typography>
         </Box>
 
