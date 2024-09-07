@@ -1,10 +1,15 @@
 "use client";
-import { Facebook, Instagram } from "@mui/icons-material";
-import XIcon from "@mui/icons-material/X";
+import { Facebook, Instagram, Email } from "@mui/icons-material";
+import TikTokIcon from "@mui/icons-material/MusicNote"; // TikTok icon replacement
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const Footer = () => {
+  // Function to handle social icon clicks
+  const handleIconClick = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <Box
       sx={{
@@ -31,8 +36,9 @@ const Footer = () => {
           <Typography sx={{ color: "#ffffff", fontWeight: "bold" }}>
             About Pop-Plan
           </Typography>
+          <Box sx={{ height: "6px" }} /> {/* 2px buffer */}
           <Typography sx={{ color: "#ffffff", fontSize: "16px" }}>
-            Discover your next adventure with Poppy, your personalized itinerary
+            Discover your next adventure with Pop-Plan&apos;s AI assistant, Poppy, your personalized itinerary
             planner. Get more out of your downtime with an adventure just for
             you. Pop-Plan is perfect for exploring near home on your day off or
             while you&apos;re visiting your next travel destination. Poppy
@@ -43,13 +49,16 @@ const Footer = () => {
         </Box>
 
         <Box sx={{ display: "flex", gap: "1rem" }}>
-          <XIcon
+          <TikTokIcon
             sx={{
               cursor: "pointer",
               color: "#ffffff",
               width: "50px",
               height: "50px",
             }}
+            onClick={() =>
+              handleIconClick("https://www.tiktok.com/@pop_plan")
+            }
           />
           <Instagram
             sx={{
@@ -58,6 +67,11 @@ const Footer = () => {
               width: "50px",
               height: "50px",
             }}
+            onClick={() =>
+              handleIconClick(
+                "https://www.instagram.com/pop_plan_ai?igsh=MWF3bXF3cWpzNHF0ZQ=="
+              )
+            }
           />
           <Facebook
             sx={{
@@ -66,6 +80,22 @@ const Footer = () => {
               width: "50px",
               height: "50px",
             }}
+            onClick={() =>
+              handleIconClick(
+                "https://www.facebook.com/profile.php?id=61565035156831&sk=about"
+              )
+            }
+          />
+          <Email
+            sx={{
+              cursor: "pointer",
+              color: "#ffffff",
+              width: "50px",
+              height: "50px",
+            }}
+            onClick={() =>
+              handleIconClick("mailto:pop.plan.helpdesk@gmail.com")
+            }
           />
         </Box>
       </Box>
