@@ -56,12 +56,12 @@ const Pricing = () => {
       <Box sx={{ textAlign: "center" }}>
         <Typography
           variant="h3"
-          sx={{ textAlign: "center", color: "#46515A", fontWeight: 500 }}
+          sx={{ textAlign: "center", color: "#2f2f2f", fontWeight: 500 }}
         >
           Choose Your Adventure with Poppy
         </Typography>
         <Box sx={{ mt: "2rem" }}>
-          <Grid container spacing={4} justifyContent="center">
+          <Grid container spacing={8} justifyContent="center">
             <Grid item xs={12} sm={6} md={4}>
               <Card
                 sx={{
