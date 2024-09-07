@@ -306,7 +306,8 @@ const ChatBox = ({ itinerary, setItinerary }) => {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        padding: 4,
+        padding: 3,
+        bgcolor: "#212529",
       }}
     >
       <Box

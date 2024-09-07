@@ -179,7 +179,7 @@ const Navigation = () => {
   return (
     <>
       <AppBar
-        position="fixed"
+        position="absolute"
         sx={{
           bgcolor: "rgba(0,0,0,0.20)",
           boxShadow: "none",
