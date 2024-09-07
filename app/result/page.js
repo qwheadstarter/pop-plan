@@ -53,8 +53,7 @@ const ResultPage = () => {
       const userDocRef = doc(collection(db, "users"), user.id);
       await updateDoc(userDocRef, { isPremiumUser: true });
 
-      // in local testing, this gets called 2-4 times for some reason. should update to stripe webhook, time permitting
-      await incrementUserPlansLimit(5);
+      await incrementUserPlansLimit(10);
     }
   };
 
