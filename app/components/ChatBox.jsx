@@ -14,8 +14,9 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  IconButton,
 } from "@mui/material";
-import { ExpandMoreOutlined } from "@mui/icons-material";
+import { ExpandMoreOutlined, Send } from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
@@ -379,7 +380,9 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                     </Typography>
                   </AccordionSummary>
 
-                  <AccordionDetails>
+                  <AccordionDetails
+                    sx={{ maxHeight: "350px", overflowY: "auto" }}
+                  >
                     <Box>{formatItinerary()}</Box>
 
                     <Button
@@ -499,8 +502,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
-              marginTop: "auto",
+              flexDirection: "row",
             }}
           >
             <TextField
@@ -520,15 +522,22 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                 },
               }}
             />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmit}
-              fullWidth
-              disabled={isLoading}
-            >
-              {isLoading ? "Generating..." : "Send"}
-            </Button>
+            <Box>
+              <IconButton onClick={handleSubmit} disabled={isLoading} sx={{}}>
+                <Send
+                  sx={{
+                    color: isLoading ? "grey" : "primary.main",
+                    width: "40px",
+                    height: "40px",
+
+                    "&:hover": {
+                      color: "#0083E0",
+                    },
+                  }}
+                />
+              </IconButton>
+            </Box>
+
             {/* Purchase Additional Itineraries Dialog */}
             <Dialog
               open={upgradeDialogOpen}

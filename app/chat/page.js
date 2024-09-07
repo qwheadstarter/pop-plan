@@ -14,7 +14,6 @@ const Chat = () => {
   return (
     <>
       <div className="chat-page">
-        {/* Navigation is fixed at the top */}
         <Navigation />
         <Box
           sx={{
@@ -24,12 +23,11 @@ const Chat = () => {
             overflowY: "scroll",
           }}
         >
-          {/* Adjust the height to account for the Navigation */}
           <Box
             sx={{
               display: "flex",
               flexGrow: 1,
-              marginTop: "64px", // Assuming Navigation height is 64px, adjust if different
+              marginTop: "64px",
             }}
           >
             <Box
@@ -41,10 +39,10 @@ const Chat = () => {
             >
               <ChatBox setItinerary={setItinerary} itinerary={itinerary} />
             </Box>
-            <Box sx={{ flexGrow: 1, width: "40%" }}>
+            <Box sx={{ flexGrow: 1, width: "35%" }}>
               <MapComponent itinerary={itinerary} />
             </Box>
-            <Box sx={{ width: 300, padding: 0 }}>
+            <Box sx={{ width: 340, padding: 0 }}>
               <Places itinerary={itinerary} />
             </Box>
           </Box>
