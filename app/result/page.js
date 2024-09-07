@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../firebase";
-import { doc, collection, updateDoc } from "firebase/firestore";
+import { doc, collection, increment, updateDoc } from "firebase/firestore";
 import Navigation from "@/app/components/Navigation";
 import Footer from "@/app/components/Footer";
 
@@ -52,6 +52,17 @@ const ResultPage = () => {
     if (user) {
       const userDocRef = doc(collection(db, "users"), user.id);
       await updateDoc(userDocRef, { isPremiumUser: true });
+
+      // in local testing, this gets called 2-4 times for some reason. should update to stripe webhook, time permitting
+      await incrementUserPlansLimit(5);
+    }
+  };
+
+  const incrementUserPlansLimit = async (val) => {
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+
+      await updateDoc(userDocRef, { plansLimit: increment(val) });
     }
   };
 
@@ -91,6 +102,11 @@ const ResultPage = () => {
     );
   }
 
+  if (session.payment_status === "paid") {
+    setPremiumUser();
+    router.push("/chat");
+  }
+
   return (
     <Container
       maxWidth="false"
@@ -100,7 +116,7 @@ const ResultPage = () => {
       }}
     >
       <Navigation />
-      {session.payment_status === "paid" ? setPremiumUser() && (
+      {session.payment_status === "paid" ? (
         <>
           <Typography variant="h4">Thank you for purchasing</Typography>
           <Box sx={{ mt: 22 }}>
@@ -108,14 +124,14 @@ const ResultPage = () => {
               variant="h6"
               sx={{ color: "#fff", textAlign: "center" }}
             >
-              Session ID: {session_id}
+              We have received your payment. You will receive an email with the
+              order details shortly.
             </Typography>
             <Typography
               variant="body1"
               sx={{ color: "#fff", textAlign: "center" }}
             >
-              We have received your payment. You will receive an email with the
-              order details shortly.
+              Session ID: {session_id}
             </Typography>
           </Box>
         </>

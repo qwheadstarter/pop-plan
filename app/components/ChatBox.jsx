@@ -44,9 +44,12 @@ const ChatBox = ({ itinerary, setItinerary }) => {
         "Welcome I'm Poppy, your personal planning assistant. What details should I know before I plan your day?",
     },
   ]);
+
+  const DEFAULT_FREE_PLANS = 5; // default limit of 5 plans for free users
   const [userProfile, setUserProfile] = useState(null);
   const [isPremiumUser, setIsPremiumUser] = useState(false);
   const [plansGenerated, setPlansGenerated] = useState(0);
+  const [plansLimit, setPlansLimit] = useState(DEFAULT_FREE_PLANS);
   const [isLoading, setIsLoading] = useState(false);
   const [isSatisfied, setIsSatisfied] = useState(false);
   const [itineraryName, setItineraryName] = useState("");
@@ -63,6 +66,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       getQuizResults();
       getIsPremiumUser();
       getUserPlansGenerated();
+      getUserPlansLimit();
     }
   }, [user]);
 
@@ -112,7 +116,12 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       const userDocRef = doc(collection(db, "users"), user.id);
       const docSnap = await getDoc(userDocRef);
 
-      setIsPremiumUser(docSnap.data().isPremiumUser);
+      if (docSnap.data().isPremiumUser == null) {
+        // initialize default value to database
+        await updateDoc(userDocRef, { isPremiumUser: false });
+      } else {
+        setIsPremiumUser(docSnap.data().isPremiumUser);
+      }
     }
   };
 
@@ -121,7 +130,26 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       const userDocRef = doc(collection(db, "users"), user.id);
       const docSnap = await getDoc(userDocRef);
 
-      setPlansGenerated(docSnap.data().plansGenerated);
+      if (docSnap.data().plansGenerated == null) {
+        // initialize current value to database
+        await updateDoc(userDocRef, { plansGenerated: plansGenerated });
+      } else {
+        setPlansGenerated(docSnap.data().plansGenerated);
+      }
+    }
+  };
+
+  const getUserPlansLimit = async () => {
+    if (user) {
+      const userDocRef = doc(collection(db, "users"), user.id);
+      const docSnap = await getDoc(userDocRef);
+
+      if (docSnap.data().plansLimit == null) {
+        // initialize default value to database
+        await updateDoc(userDocRef, { plansLimit: DEFAULT_FREE_PLANS });
+      } else {
+        setPlansLimit(docSnap.data().plansLimit);
+      }
     }
   };
 
@@ -139,7 +167,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       return;
     }
 
-    if (plansGenerated >= 5 && !isPremiumUser) {
+    if (plansGenerated >= plansLimit) {
       handleOpenUpgradeDialog();
       return;
     }
