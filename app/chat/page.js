@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const Chat = () => {
   const [itinerary, setItinerary] = useState(null);
-  const { user } = useUser;
+  const { user } = useUser();
 
   return (
     <>

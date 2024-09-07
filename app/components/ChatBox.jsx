@@ -195,6 +195,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
       });
 
       const data = await response.json();
+      console.log("data from open ai: ", data);
       const parsedData = JSON.parse(data.response);
       setItinerary(parsedData.itinerary);
       setResponse(parsedData.intro);

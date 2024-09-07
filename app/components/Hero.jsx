@@ -35,6 +35,10 @@ const Hero = () => {
     "/assets/12.mp4",
     "/assets/13.mp4",
     "/assets/14.mp4",
+    "/assets/15.mp4",
+    "/assets/16.mp4",
+    "/assets/17.mp4",
+    "/assets/18.mp4",
   ];
 
   const getRandomVideo = () => {
