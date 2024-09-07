@@ -42,7 +42,12 @@ const Chat = () => {
             <Box sx={{ flexGrow: 1, width: "35%" }}>
               <MapComponent itinerary={itinerary} />
             </Box>
-            <Box sx={{ width: 340, padding: 0 }}>
+            <Box
+              sx={{
+                width: 340,
+                padding: 0,
+              }}
+            >
               <Places itinerary={itinerary} />
             </Box>
           </Box>

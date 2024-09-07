@@ -74,11 +74,11 @@ const Places = ({ itinerary }) => {
       <IconButton
         onClick={handleToggleDrawer}
         style={{
-          position: "absolute",
+          position: "fixed", // Fixed positioning
           top: "50%",
-          right: open ? 290 : 0, // Adjust for open state
+          right: open ? 310 : 0, // Adjust for open state
           transform: "translateY(-50%)", // Center vertically
-          zIndex: 1200,
+          zIndex: 1300, // Ensure it's above the Drawer
           transition: "right 0.3s ease", // Smooth transition
         }}
       >
@@ -101,23 +101,29 @@ const Places = ({ itinerary }) => {
         variant="persistent"
         sx={{
           bgcolor: "transparent",
-          width: 310,
+          width: 340, // Fixed width for the drawer
           flexShrink: 0,
+          height: "100vh", // Full height of the viewport
           "& .MuiDrawer-paper": {
             bgcolor: "#343a40",
-            width: 310,
+            width: "100%",
+            height: "100%",
             boxSizing: "border-box",
+            position: "relative",
+            zIndex: 1200, // Ensure it's below the arrow icon
           },
         }}
       >
-        <div style={{ height: "100%", padding: "16px" }}>
+        <div
+          style={{ height: "100%", padding: "16px", boxSizing: "border-box" }}
+        >
           {error && <Typography color="error">{error}</Typography>}
           {placeDetails.length > 0 ? (
             <Swiper
               direction="vertical"
               spaceBetween={10}
               slidesPerView={2}
-              style={{ height: "100%" }}
+              style={{ height: "calc(100% - 40px)" }} // Adjust for header/footer height if needed
             >
               {placeDetails.map((place, index) => (
                 <SwiperSlide key={index} style={{ height: "300px" }}>
