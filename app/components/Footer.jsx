@@ -38,7 +38,7 @@ const Footer = () => {
             while you&apos;re visiting your next travel destination. Poppy
             instantly curates experiences just for you, leaving you with more
             free time to enjoy your day instead of planning it. Let Poppy make
-            your next outing unforgettable
+            your next outing unforgettable.
           </Typography>
         </Box>
 
