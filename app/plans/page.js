@@ -128,9 +128,9 @@ export default function Plans() {
                       aria-label="expand"
                     >
                       {expanded[itinerary.id] ? (
-                        <ExpandLessIcon />
+                        <ExpandLessIcon onClick={() => handleExpandClick(itinerary.id)} />
                       ) : (
-                        <ExpandMoreIcon />
+                        <ExpandMoreIcon onClick={() => handleExpandClick(itinerary.id)} />
                       )}
                     </IconButton>
 
