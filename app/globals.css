@@ -41,10 +41,40 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(
-    109.6deg,
-    rgb(204, 228, 247) 11.2%,
-    rgb(237, 246, 250) 100.2%
+}
+
+/* HOME PAGE BACKGROUND */
+
+.how-container {
+  background-image: radial-gradient(
+    circle,
+    #bac8e0,
+    #afbcd3,
+    #a3b0c7,
+    #98a5ba,
+    #8d99ae
+  );
+}
+
+.featured-itineraries {
+  background-image: radial-gradient(
+    circle,
+    #bac8e0,
+    #afbcd3,
+    #a3b0c7,
+    #98a5ba,
+    #8d99ae
+  );
+}
+
+.pricing-container {
+  background-image: radial-gradient(
+    circle,
+    #bac8e0,
+    #afbcd3,
+    #a3b0c7,
+    #98a5ba,
+    #8d99ae
   );
 }
 
@@ -59,11 +89,6 @@
 }
 
 .featured-destinations-container {
-  background: linear-gradient(
-    109.6deg,
-    rgb(204, 228, 247) 11.2%,
-    rgb(237, 246, 250) 100.2%
-  );
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -72,12 +97,6 @@
 }
 
 .pricing-container {
-  /* background: linear-gradient(to bottom, #378e9e 35%, #ae2012); */
-  background: linear-gradient(
-    109.6deg,
-    rgb(204, 228, 247) 11.2%,
-    rgb(237, 246, 250) 100.2%
-  );
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -606,4 +625,13 @@
   height: 100vh;
   /* overflow: hidden; */
   background-color: #212529;
+}
+
+.featured-itineraries {
+}
+
+.featured-itineraries,
+.how-container,
+.pricing-container {
+  /* background-color: #93a5cf; */
 }

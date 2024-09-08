@@ -516,7 +516,7 @@ const ChatBox = ({ itinerary, setItinerary }) => {
                 if (e.key === "Enter") handleSubmit();
               }}
               sx={{
-                mb: 4,
+                mb: 8,
                 ".MuiInputBase-input": {
                   bgcolor: "#40474F",
                   color: "#fff",
