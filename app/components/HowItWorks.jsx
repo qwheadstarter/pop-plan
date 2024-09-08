@@ -18,9 +18,9 @@ const HowItWorks = forwardRef((props, ref) => (
     >
       <Typography
         variant="h3"
-        sx={{ textAlign: "center", color: "#46515A", fontWeight: 500, mb: 3 }}
+        sx={{ textAlign: "center", color: "#2f2f2f", fontWeight: 500, mb: 3 }}
       >
-        Getting Started With Poppy
+        Getting Started With Our Pop-Plan AI assitant, Poppy
       </Typography>
       <Grid container spacing={8}>
         <Grid item xs={12} md={4}>
