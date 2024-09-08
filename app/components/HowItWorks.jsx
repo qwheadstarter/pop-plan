@@ -20,7 +20,7 @@ const HowItWorks = forwardRef((props, ref) => (
         variant="h3"
         sx={{ textAlign: "center", color: "#2f2f2f", fontWeight: 500, mb: 3 }}
       >
-        Getting Started With Our Pop-Plan AI assitant, Poppy
+        Getting Started With Our Pop-Plan AI assistant, Poppy
       </Typography>
       <Grid container spacing={8}>
         <Grid item xs={12} md={4}>
@@ -136,6 +136,6 @@ const HowItWorks = forwardRef((props, ref) => (
   </div>
 ));
 
-HowItWorks.displayName = 'HowItWorks';
+HowItWorks.displayName = "HowItWorks";
 
 export default HowItWorks;

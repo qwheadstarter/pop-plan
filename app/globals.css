@@ -41,7 +41,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background:linear-gradient(to bottom,white 10%, #378e9e);
+  background: linear-gradient(
+    109.6deg,
+    rgb(204, 228, 247) 11.2%,
+    rgb(237, 246, 250) 100.2%
+  );
 }
 
 .how-bg {
@@ -55,7 +59,11 @@
 }
 
 .featured-destinations-container {
-  background:#378e9e;
+  background: linear-gradient(
+    109.6deg,
+    rgb(204, 228, 247) 11.2%,
+    rgb(237, 246, 250) 100.2%
+  );
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -64,7 +72,12 @@
 }
 
 .pricing-container {
-  background: linear-gradient(to bottom, #378e9e 35%, #ae2012);
+  /* background: linear-gradient(to bottom, #378e9e 35%, #ae2012); */
+  background: linear-gradient(
+    109.6deg,
+    rgb(204, 228, 247) 11.2%,
+    rgb(237, 246, 250) 100.2%
+  );
   height: 100vh;
   overflow: hidden;
   display: flex;

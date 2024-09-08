@@ -23,7 +23,7 @@ const FeaturedDestinations = () => {
             mb: 3,
           }}
         >
-          Instant Itineraries Where Ever You Are
+          Instant Itineraries Wherever You Are
         </Typography>
         <Grid container spacing={15}>
           <Grid item xs={12} sm={6} md={4}>
@@ -289,7 +289,6 @@ const FeaturedDestinations = () => {
               </CardContent>
             </Card>
           </Grid>
-
         </Grid>
       </Container>
     </div>
