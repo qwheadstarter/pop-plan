@@ -46,35 +46,59 @@
 /* HOME PAGE BACKGROUND */
 
 .how-container {
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     circle,
     #bac8e0,
     #afbcd3,
     #a3b0c7,
     #98a5ba,
     #8d99ae
+  ); */
+  background-image: radial-gradient(
+    circle,
+    #96c3f6,
+    #accef8,
+    #c0d9fa,
+    #d4e5fb,
+    #e7f0fd
   );
 }
 
 .featured-itineraries {
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     circle,
     #bac8e0,
     #afbcd3,
     #a3b0c7,
     #98a5ba,
     #8d99ae
+  ); */
+  background-image: radial-gradient(
+    circle,
+    #96c3f6,
+    #accef8,
+    #c0d9fa,
+    #d4e5fb,
+    #e7f0fd
   );
 }
 
 .pricing-container {
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
     circle,
     #bac8e0,
     #afbcd3,
     #a3b0c7,
     #98a5ba,
     #8d99ae
+  ); */
+  background-image: radial-gradient(
+    circle,
+    #96c3f6,
+    #accef8,
+    #c0d9fa,
+    #d4e5fb,
+    #e7f0fd
   );
 }
 
